@@ -1,5 +1,8 @@
 package com.narada.sdk;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiFunction;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.narada.sdk.api_client.NaradaApiServiceClient;
@@ -7,6 +10,7 @@ import com.narada.sdk.models.*;
 import com.narada.sdk.services.AccountManagementService;
 import com.narada.sdk.services.CardManagementService;
 import com.narada.sdk.utilities.RequestHeaderUtil;
+import com.narada.sdk.utilities.NoSuchMethodException;
 
 /**
  * The NaradaSystem class provides methods to interact with the Narada API
@@ -16,10 +20,78 @@ public class NaradaSystem {
 
 	private final CardManagementService cardManagementService = new CardManagementService();
 	private final AccountManagementService accountManagementService = new AccountManagementService();
+	
+	// Map to hold method names and corresponding method references
+    private final Map<String, BiFunction<RequestHeader, Object, Object>> methodMap = new HashMap<>();
+
+    // Constructor to populate the method map
+    public NaradaSystem() {
+        // Populate the map with method names and corresponding method references
+        methodMap.put("getNewCard", (rh, req) -> getNewCard(rh, (NewCardRequest) req));
+        methodMap.put("getCardDetails", (rh, req) -> getCardDetails(rh, (CardDetailRequest) req));
+        methodMap.put("activateCard", (rh, req) -> activateCard(rh, (ActivateCardRequest) req));
+        methodMap.put("blockLockUnlockCard", (rh, req) -> blockLockUnlockCard(rh, (CardBlockOrUnblockReq) req));
+        methodMap.put("replaceCard", (rh, req) -> replaceCard(rh, (CardReplaceRequest) req));
+        methodMap.put("updateCustomerDetails", (rh, req) -> updateCustomerDetails(rh, (UpdateCustomerRequest) req));
+        methodMap.put("addAccount", (rh, req) -> addAccount(rh, (AddAccountRequest) req));
+        methodMap.put("loadCard", (rh, req) -> loadCard(rh, (LoadCardRequest) req));
+        methodMap.put("queryBalance", (rh, req) -> queryBalance(rh, (QueryBalanceRequest) req));
+        methodMap.put("refundAmount", (rh, req) -> refundAmount(rh, (RefundAmountRequest) req));
+        methodMap.put("accountClosure", (rh, req) -> accountClosure(rh, (AccountClosureRequest) req));
+        methodMap.put("getXTransactions", (rh, req) -> getXTransactions(rh, (XTransactionsRequest) req));
+        methodMap.put("debitCreditAccount", (rh, req) -> debitCreditAccount(rh, (DebitCreditAccountRequest) req));
+        methodMap.put("fundTransfer", (rh, req) -> fundTransfer(rh, (FundTransferRequest) req));
+        methodMap.put("updateExchangeRate", (rh, req) -> updateExchangeRate(rh, (UpdateExchangeRateRequest) req));
+        methodMap.put("cardOrder", (rh, req) -> cardOrder(rh, (CardOrderRequest) req));
+        methodMap.put("cardReceipt", (rh, req) -> cardReceipt(rh, (CardReceiptRequest) req));
+        methodMap.put("updateStockDetails", (rh, req) -> updateStockDetails(rh, (UpdateStockDetailsRequest) req));
+        methodMap.put("getStockDetails", (rh, req) -> getStockDetails(rh, (StockDetailsRequest) req));
+        methodMap.put("getStatusRequest", (rh, req) -> getStatusRequest(rh, (StatusRequest) req));
+        methodMap.put("createProfile", (rh, req) -> createProfile(rh, (ProfileCreationRequest) req));
+        methodMap.put("changePassword", (rh, req) -> changePassword(rh, (ChangePasswordRequest) req));
+        methodMap.put("getAccessRights", (rh, req) -> getAccessRights(rh, (AccessRightsRequest) req));
+        methodMap.put("retrieveATMPin", (rh, req) -> retrieveATMPin(rh, (RetrievePinRequest) req));
+        methodMap.put("verifyATMPin", (rh, req) -> verifyATMPin(rh, (VerifyPinRequest) req));
+        methodMap.put("changeATMPin", (rh, req) -> changeATMPin(rh, (ChangePinRequest) req));
+        methodMap.put("assignOverrideSettings", (rh, req) -> assignOverrideSettings(rh, (OverrideSettingsRequest) req));
+        methodMap.put("alertSettings", (rh, req) -> alertSettings(rh, (AlertSettingsRequest) req));
+        methodMap.put("getCardNumber", (rh, req) -> getCardNumber(rh, (CardNumberRequest) req));
+        methodMap.put("getCSCEnquiry", (rh, req) -> getCSCEnquiry(rh, (CSCEnquiryRequest) req));
+        methodMap.put("getCardOrderStatus", (rh, req) -> getCardOrderStatus(rh, (CardOrderStatusRequest) req));
+        methodMap.put("setIVRPin", (rh, req) -> setIVRPin(rh, (SetPinRequest) req));
+        methodMap.put("changeIVRPin", (rh, req) -> changeIVRPin(rh, (ChangeIvrPinRequest) req));
+        methodMap.put("validateIVRPin", (rh, req) -> validateIVRPin(rh, (ValidatePinRequest) req));
+        methodMap.put("resetWebPassword", (rh, req) -> resetWebPassword(rh, (ResetPasswordRequest) req));
+        methodMap.put("setATMPin", (rh, req) -> setATMPin(rh, (SetAtmPinRequest) req));
+        methodMap.put("newOTPRequest", (rh, req) -> newOTPRequest(rh, (OTPRequest) req));
+        methodMap.put("otpValidation", (rh, req) -> otpValidation(rh, (OTPValidationRequest) req));
+        methodMap.put("retrieveWebProfile", (rh, req) -> retrieveWebProfile(rh, (WebProfileRequest) req));
+        methodMap.put("corporateRegistration", (rh, req) -> corporateRegistration(rh, (CorporateRegistrationRequest) req));
+        methodMap.put("addCardRequest", (rh, req) -> addCardRequest(rh, (AddCardRequest) req));
+    }
+
+    // Common method to invoke service methods based on the method name
+    public Object invokeServiceMethod(String methodName, RequestHeader rh, Object req) {
+        if (ObjectUtils.isEmpty(methodName) || rh == null || req == null) {
+            throw new IllegalArgumentException("Method name, RequestHeader, and request object cannot be null.");
+        }
+
+        BiFunction<RequestHeader, Object, Object> method = methodMap.get(methodName);
+
+        if (method == null) {
+            throw new NoSuchMethodException("No such method found: " + methodName);
+        }
+
+        try {
+            return method.apply(rh, req);
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException("Invalid request object type for method: " + methodName, e);
+        }
+    }
 
 	public RequestHeader getHeader(final String channelType, final String msgRefNo) {
 		if (ObjectUtils.isEmpty(channelType) || ObjectUtils.isEmpty(msgRefNo)) {
-			throw new IllegalArgumentException("apiKey, channelType and msgRefNo fields are required");
+			throw new IllegalArgumentException("channelType and msgRefNo fields are required");
 		}
 		return RequestHeaderUtil.createHeader(channelType, msgRefNo);
 	}

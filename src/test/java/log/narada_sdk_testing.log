@@ -3050,3 +3050,127 @@ Content-Type: application/soap+xml;action="urn:serviceCallResponse";charset=UTF-
 Headers: {content-type=[application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8], date=[Wed, 11 Sep 2024 08:48:51 GMT], server=[], strict-transport-security=[max-age=31536000;includeSubDomains], test=[max-age=2592000, public], transfer-encoding=[chunked]}
 Payload: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns2:serviceCallResponse xmlns:ns2="http://services.api.ycs.com"><ns2:naradaResponse><responseBody xmlns="http://model.api.ycs.com/xsd"><response></response><responseCode>TXNALT</responseCode><responseText>Transaction Reference Number is already exists</responseText></responseBody><responseHeader xmlns="http://model.api.ycs.com/xsd"><apiKey>APCHDT</apiKey><channelType>API</channelType><clientId>SNDBOX</clientId><msgRefNo>1234561234560000</msgRefNo><msgTimeStamp>20240911141832</msgTimeStamp><sessionKey>NO_DATA</sessionKey><token>NO_DATA</token></responseHeader></ns2:naradaResponse></ns2:serviceCallResponse></soapenv:Body></soapenv:Envelope>
 --------------------------------------
+2024-09-12 09:35:34 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 09:37:18 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 09:38:14 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 09:39:39 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 09:42:42 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 09:48:24 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 10:01:38 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 10:01:40 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Outbound Message
+---------------------------
+ID: 1
+Address: https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService
+Encoding: UTF-8
+Http-Method: POST
+Content-Type: application/soap+xml; action="urn:echo"
+Headers: {Accept=[*/*]}
+Payload: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><echo xmlns="http://services.api.ycs.com" xmlns:ns2="http://model.api.ycs.com/xsd"><echoReq>test, connection</echoReq></echo></soap:Body></soap:Envelope>
+--------------------------------------
+2024-09-12 10:01:42 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Inbound Message
+----------------------------
+ID: 1
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: application/soap+xml;action="urn:echoResponse";charset=UTF-8
+Headers: {content-type=[application/soap+xml;action="urn:echoResponse";charset=UTF-8], date=[Thu, 12 Sep 2024 04:32:01 GMT], server=[], strict-transport-security=[max-age=31536000;includeSubDomains], test=[max-age=2592000, public], transfer-encoding=[chunked]}
+Payload: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns2:echoResponse xmlns:ns2="http://services.api.ycs.com"><ns2:echoResp>Welcome To Prepaid API,Request received from client : [test, connection]</ns2:echoResp></ns2:echoResponse></soapenv:Body></soapenv:Envelope>
+--------------------------------------
+2024-09-12 10:01:42 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Outbound Message
+---------------------------
+ID: 2
+Address: https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService
+Encoding: UTF-8
+Http-Method: POST
+Content-Type: application/soap+xml; action="urn:serviceCall"
+Headers: {Accept=[*/*]}
+Payload: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><serviceCall xmlns="http://services.api.ycs.com" xmlns:ns2="http://model.api.ycs.com/xsd"><naradaRequest><ns2:requestBody><ns2:request>33cR+7zKrr9PKlwheOKpEPxAgoXQJqhNcH1fAbkPI7uTDU48Ijra+2m6QLHkLX3pXEq1op/gfnHk+NcxeJA11CnkLfyxbG8Cor6ctICWHV7IFjUAQnYvHxfXvf7YnaovmcRGWCPg/R5gxX5Mz/9Z2CgMBCvTZ/Ls4aurtIgyXu3qS0Ko8A==</ns2:request></ns2:requestBody><ns2:requestHeader><ns2:apiKey>APCHDT</ns2:apiKey><ns2:apiPasswd>decYwEQhl1QXC4U8LYBt0NaurZW09JedEb46Nlqnel0oLub3jUn2ayEQjvqMfLGIsAj4YfE6ylWNKf5C72s3vg==</ns2:apiPasswd><ns2:apiUserId>APIUSER</ns2:apiUserId><ns2:channelType>API</ns2:channelType><ns2:clientId>SNDBOX</ns2:clientId><ns2:msgRefNo>1234561234560000</ns2:msgRefNo><ns2:msgTimeStamp>20240912100138</ns2:msgTimeStamp><ns2:sessionKey>N5zkDI++z5Z9xod0O1fxCwN3n7XDg5FJCvlNOVSvUemIbTtQv6oyCxb6sKOG43x3vZDU7I7dKgS3CDJwGkEIGrSbrn9lURZGzx4OgG5TDGV+FSQRhVoj5SQf+DP5OK4ynIwtBBGMNG7MUNKI5cfvBHd+A+2MFEAcumIpfiWDNllfz4vLaVjqjHT2paBxAXLydGDZzYkysTIU4ObIbdePf4jdLESLwHiDY/z5ThpgZgZ01wkzObbQjugpkn5/+Sm2Wen67UjcoBfd3aHJWKE6loXO4oLVaJ80gDLCe3I0RviMcDNW/6OQcfYp5+8I7MOqF3tDMQWLbMFyhE8xAJzFuA==</ns2:sessionKey><ns2:token>KnfQf9eJlQguu+YID1eJLVT6/Uz2VOl+DSMemeEOyZgTGQXXa5kKxxDRUW3N6/1bhGTE31wfLLK6qnCFJq7VqutrKTWhwuIaKiP1QTkCqLRo2n4SdJCPQ56TbQvO5WVYW6qT/Ozd0DSWknPSdxbqjetBFF0hLYEIOYYG9tbp4O9yv1bjFgNyGspnEdTZzaUHF2hui2YCHrmsMa39wDWXTERC3od2ayC/wBGYKx0HLjzpTKpcprolIx8x4Cj+V6MDKjAC37ILzqHf2bqsVdnT7crwzzGwyPpZul+gY//wCJfuJtab2wzJBS1LljFTSX/cypJBGXXwkS56oOkSOJfOog==</ns2:token></ns2:requestHeader></naradaRequest></serviceCall></soap:Body></soap:Envelope>
+--------------------------------------
+2024-09-12 10:01:42 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Inbound Message
+----------------------------
+ID: 2
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8
+Headers: {content-type=[application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8], date=[Thu, 12 Sep 2024 04:32:01 GMT], server=[], strict-transport-security=[max-age=31536000;includeSubDomains], test=[max-age=2592000, public], transfer-encoding=[chunked]}
+Payload: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns2:serviceCallResponse xmlns:ns2="http://services.api.ycs.com"><ns2:naradaResponse><responseBody xmlns="http://model.api.ycs.com/xsd"><response></response><responseCode>TXNALT</responseCode><responseText>Transaction Reference Number is already exists</responseText></responseBody><responseHeader xmlns="http://model.api.ycs.com/xsd"><apiKey>APCHDT</apiKey><channelType>API</channelType><clientId>SNDBOX</clientId><msgRefNo>1234561234560000</msgRefNo><msgTimeStamp>20240912100138</msgTimeStamp><sessionKey>NO_DATA</sessionKey><token>NO_DATA</token></responseHeader></ns2:naradaResponse></ns2:serviceCallResponse></soapenv:Body></soapenv:Envelope>
+--------------------------------------
+2024-09-12 11:02:06 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:02:06 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:02:06 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:26:47 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:26:47 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:26:47 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 11:26:47 INFO  c.n.s.a.NaradaApiServiceClient - Starting service call with message reference number: 1234561234560000
+2024-09-12 11:26:47 INFO  c.n.s.a.NaradaApiServiceClient - Attempting service call, attempt number: 1
+2024-09-12 11:26:48 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Outbound Message
+---------------------------
+ID: 1
+Address: https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService
+Encoding: UTF-8
+Http-Method: POST
+Content-Type: application/soap+xml; action="urn:serviceCall"
+Headers: {Accept=[*/*], Authorization=[Basic QVBJVVNFUjpkZWNZd0VRaGwxUVhDNFU4TFlCdDBOYXVyWlcwOUplZEViNDZObHFuZWwwb0x1YjNqVW4yYXlFUWp2cU1mTEdJc0FqNFlmRTZ5bFdOS2Y1QzcyczN2Zz09]}
+Payload: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><serviceCall xmlns="http://services.api.ycs.com" xmlns:ns2="http://model.api.ycs.com/xsd"><naradaRequest><ns2:requestBody><ns2:request>cqI7TFWhUdRQpqHql6UpvROjycr4CdQkVuIQlVJxEzQy8KnvjpANkiuKx+Nnzpgzsa1stehjvxcoH2ttZQHezV4ZkvuRl/a6CkOBoiUpyvJludc3aC46QMeBHraXJKaLjjeAH8SvWY5j8nSkYc+HmyDhfh8PhW5x6wNlj5QZaWr+2oxVQg==</ns2:request></ns2:requestBody><ns2:requestHeader><ns2:apiKey>APCHDT</ns2:apiKey><ns2:apiPasswd>decYwEQhl1QXC4U8LYBt0NaurZW09JedEb46Nlqnel0oLub3jUn2ayEQjvqMfLGIsAj4YfE6ylWNKf5C72s3vg==</ns2:apiPasswd><ns2:apiUserId>APIUSER</ns2:apiUserId><ns2:channelType>API</ns2:channelType><ns2:clientId>SNDBOX</ns2:clientId><ns2:msgRefNo>1234561234560000</ns2:msgRefNo><ns2:msgTimeStamp>20240912112647</ns2:msgTimeStamp><ns2:sessionKey>VMyefmWX5/VDXbYb+ImrfBTC2iKV/sAKp0ZLpugGHs2T/QEFQQ6U0ZcH6fKpotDiQrq1lGYMlBT5sajurbtt9+Tt/18jrS7vv5H7ht4EGrckRJxzQsmsEQUeN6kbmqTR7PidYRDXuMPsALYSWDz081JhGDaL2q5w6a1BM8UAdtPe/kfMHr3xNeRfDW+tbiThZKElH91N+b1EBzePhAXEa5iM1cAbd2e9x6FEUmBKSVVOjQUyiUMtorl7S0MpQ9+XZtGha8Rmcq4Ac16vgUSxswutsfj7EfCdiED98Ey/ZgfzNcPw6qaqlsC6Kv/J8Dr7TsajwYggMIWCHu0PfGaYFg==</ns2:sessionKey><ns2:token>KnfQf9eJlQguu+YID1eJLVT6/Uz2VOl+DSMemeEOyZgTGQXXa5kKxxDRUW3N6/1bhGTE31wfLLK6qnCFJq7VqutrKTWhwuIaKiP1QTkCqLRo2n4SdJCPQ56TbQvO5WVYW6qT/Ozd0DSWknPSdxbqjetBFF0hLYEIOYYG9tbp4O9yv1bjFgNyGspnEdTZzaUHF2hui2YCHrmsMa39wDWXTERC3od2ayC/wBGYKx0HLjzpTKpcprolIx8x4Cj+V6MDKjAC37ILzqHf2bqsVdnT7crwzzGwyPpZul+gY//wCJfuJtab2wzJBS1LljFTSX/cypJBGXXwkS56oOkSOJfOog==</ns2:token></ns2:requestHeader></naradaRequest></serviceCall></soap:Body></soap:Envelope>
+--------------------------------------
+2024-09-12 11:26:50 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Inbound Message
+----------------------------
+ID: 1
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8
+Headers: {content-type=[application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8], date=[Thu, 12 Sep 2024 05:57:09 GMT], server=[], strict-transport-security=[max-age=31536000;includeSubDomains], test=[max-age=2592000, public], transfer-encoding=[chunked]}
+Payload: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns2:serviceCallResponse xmlns:ns2="http://services.api.ycs.com"><ns2:naradaResponse><responseBody xmlns="http://model.api.ycs.com/xsd"><response></response><responseCode>TXNALT</responseCode><responseText>Transaction Reference Number is already exists</responseText></responseBody><responseHeader xmlns="http://model.api.ycs.com/xsd"><apiKey>APCHDT</apiKey><channelType>API</channelType><clientId>SNDBOX</clientId><msgRefNo>1234561234560000</msgRefNo><msgTimeStamp>20240912112647</msgTimeStamp><sessionKey>NO_DATA</sessionKey><token>NO_DATA</token></responseHeader></ns2:naradaResponse></ns2:serviceCallResponse></soapenv:Body></soapenv:Envelope>
+--------------------------------------
+2024-09-12 11:26:50 ERROR c.n.s.a.NaradaApiServiceClient - Null response for message reference number: 1234561234560000
+2024-09-12 11:26:50 ERROR c.n.s.a.NaradaApiServiceClient - An error occurred during service call
+com.narada.sdk.utilities.ServiceException: Received null response from service call.
+	at com.narada.sdk.api_client.NaradaApiServiceClient.verifyAndDecryptResponse(NaradaApiServiceClient.java:96)
+	at com.narada.sdk.api_client.NaradaApiServiceClient.serviceCall(NaradaApiServiceClient.java:69)
+	at com.narada.sdk.services.CardManagementService.getCardDetail(CardManagementService.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.narada.sdk.NaradaSystemFactory.invokeServiceMethod(NaradaSystemFactory.java:40)
+	at com.narada.sdk.Test.cardDetail(Test.java:43)
+	at com.narada.sdk.Test.main(Test.java:24)
+2024-09-12 12:00:02 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:00:03 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:00:03 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:01:33 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:01:34 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:01:34 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:01:34 INFO  c.n.s.a.NaradaApiServiceClient - Starting service call with message reference number: 1234561234560000
+2024-09-12 12:01:34 INFO  c.n.s.a.NaradaApiServiceClient - Attempting service call, attempt number: 1
+2024-09-12 12:01:34 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Outbound Message
+---------------------------
+ID: 1
+Address: https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService
+Encoding: UTF-8
+Http-Method: POST
+Content-Type: application/soap+xml; action="urn:serviceCall"
+Headers: {Accept=[*/*], Authorization=[Basic QVBJVVNFUjpkZWNZd0VRaGwxUVhDNFU4TFlCdDBOYXVyWlcwOUplZEViNDZObHFuZWwwb0x1YjNqVW4yYXlFUWp2cU1mTEdJc0FqNFlmRTZ5bFdOS2Y1QzcyczN2Zz09]}
+Payload: <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"><soap:Body><serviceCall xmlns="http://services.api.ycs.com" xmlns:ns2="http://model.api.ycs.com/xsd"><naradaRequest><ns2:requestBody><ns2:request>3FEiCQSkuN/TwNN7zGPl1s1vvQTAFtPLmY3vLD4/5UWJiUWIyKOD0LBZNXTMznHuU4eMIv2d5MTcXd4Qt7Rud5SfD0JBbwAS2FJPs35+9ImPVYjjVkQWSH+JA17l/jq6hDwDbUoociUiINtnEIOmsflSriE0ZV2dJuM4HssZpkZ+RcUkRA==</ns2:request></ns2:requestBody><ns2:requestHeader><ns2:apiKey>APCHDT</ns2:apiKey><ns2:apiPasswd>decYwEQhl1QXC4U8LYBt0NaurZW09JedEb46Nlqnel0oLub3jUn2ayEQjvqMfLGIsAj4YfE6ylWNKf5C72s3vg==</ns2:apiPasswd><ns2:apiUserId>APIUSER</ns2:apiUserId><ns2:channelType>API</ns2:channelType><ns2:clientId>SNDBOX</ns2:clientId><ns2:msgRefNo>1234561234560000</ns2:msgRefNo><ns2:msgTimeStamp>20240912120133</ns2:msgTimeStamp><ns2:sessionKey>uV1F9bCdEer3UNAL3Jgw1Span8wSu1lCX4hz3ruqhWHy3QIfhpCOqaQ2qv05BAhH7JbaFCbG2/Dd2yLgIvW02cm+ylip5UwbwMVXlnakz8Cog8MOhW9/j/+ei8BOSy8e/ejY2wYxYLLJ+qbRS11gBSuY/76yNzQWOzLhisL2+rIR9rZSympA1QD6APwucfNixFmQtu+z1B9x1ucldSfC95aneKQzG+w+voO049DFTqUgCumtFGjrjzSsFBQdr8dXmNpU+2UMtOX4JMfEKeVgfmaSqeO5Oh3tA8Qsl7/1Uy7NiIwKDUNZ3ifmFH/ufJ4uM6/i5m2q53T97PYMBgQfjQ==</ns2:sessionKey><ns2:token>KnfQf9eJlQguu+YID1eJLVT6/Uz2VOl+DSMemeEOyZgTGQXXa5kKxxDRUW3N6/1bhGTE31wfLLK6qnCFJq7VqutrKTWhwuIaKiP1QTkCqLRo2n4SdJCPQ56TbQvO5WVYW6qT/Ozd0DSWknPSdxbqjetBFF0hLYEIOYYG9tbp4O9yv1bjFgNyGspnEdTZzaUHF2hui2YCHrmsMa39wDWXTERC3od2ayC/wBGYKx0HLjzpTKpcprolIx8x4Cj+V6MDKjAC37ILzqHf2bqsVdnT7crwzzGwyPpZul+gY//wCJfuJtab2wzJBS1LljFTSX/cypJBGXXwkS56oOkSOJfOog==</ns2:token></ns2:requestHeader></naradaRequest></serviceCall></soap:Body></soap:Envelope>
+--------------------------------------
+2024-09-12 12:01:36 INFO  o.a.c.s.N.N.NaradaApiServicePortType - Inbound Message
+----------------------------
+ID: 1
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8
+Headers: {content-type=[application/soap+xml;action="urn:serviceCallResponse";charset=UTF-8], date=[Thu, 12 Sep 2024 06:31:55 GMT], server=[], strict-transport-security=[max-age=31536000;includeSubDomains], test=[max-age=2592000, public], transfer-encoding=[chunked]}
+Payload: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><ns2:serviceCallResponse xmlns:ns2="http://services.api.ycs.com"><ns2:naradaResponse><responseBody xmlns="http://model.api.ycs.com/xsd"><response></response><responseCode>TXNALT</responseCode><responseText>Transaction Reference Number is already exists</responseText></responseBody><responseHeader xmlns="http://model.api.ycs.com/xsd"><apiKey>APCHDT</apiKey><channelType>API</channelType><clientId>SNDBOX</clientId><msgRefNo>1234561234560000</msgRefNo><msgTimeStamp>20240912120133</msgTimeStamp><sessionKey>NO_DATA</sessionKey><token>NO_DATA</token></responseHeader></ns2:naradaResponse></ns2:serviceCallResponse></soapenv:Body></soapenv:Envelope>
+--------------------------------------
+2024-09-12 12:01:36 ERROR c.n.s.a.NaradaApiServiceClient - Null response for message reference number: 1234561234560000
+2024-09-12 12:01:36 ERROR c.n.s.a.NaradaApiServiceClient - An error occurred during service call
+com.narada.sdk.utilities.ServiceException: Received null response from service call.
+	at com.narada.sdk.api_client.NaradaApiServiceClient.verifyAndDecryptResponse(NaradaApiServiceClient.java:96)
+	at com.narada.sdk.api_client.NaradaApiServiceClient.serviceCall(NaradaApiServiceClient.java:69)
+	at com.narada.sdk.services.CardManagementService.getCardDetail(CardManagementService.java:54)
+	at com.narada.sdk.NaradaSystem.getCardDetails(NaradaSystem.java:112)
+	at com.narada.sdk.NaradaSystem.lambda$1(NaradaSystem.java:31)
+	at com.narada.sdk.NaradaSystem.invokeServiceMethod(NaradaSystem.java:86)
+	at com.narada.sdk.Test.cardDetail(Test.java:46)
+	at com.narada.sdk.Test.main(Test.java:25)
+2024-09-12 12:13:37 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:16:08 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-12 12:16:27 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl

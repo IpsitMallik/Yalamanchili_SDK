@@ -1,8 +1,5 @@
 package com.narada.sdk;
 
-import org.apache.cxf.interceptor.LoggingInInterceptor;
-import org.apache.cxf.interceptor.LoggingOutInterceptor;
-
 import com.narada.sdk.api_client.NaradaApiService;
 import com.narada.sdk.api_client.NaradaApiServicePortType;
 import com.narada.sdk.models.CardDetailRequest;
@@ -17,7 +14,6 @@ import com.narada.sdk.utilities.PayLoadValidator;
 import com.narada.sdk.utilities.RequestHeaderUtil;
 import com.narada.sdk.utilities.XmlRequestGenerator;
 
-@SuppressWarnings("deprecation")
 public class Test {
 	public static void main(String[] args) {
 		 cardDetail();
@@ -26,9 +22,6 @@ public class Test {
 		try {
 			NaradaApiService service = new NaradaApiService();
 			NaradaApiServicePortType port = service.getNaradaApiServiceHttpSoap12Endpoint();
-			org.apache.cxf.endpoint.Client client = org.apache.cxf.frontend.ClientProxy.getClient(port);
-			client.getInInterceptors().add(new LoggingInInterceptor());
-			client.getOutInterceptors().add(new LoggingOutInterceptor());
 
 			RequestHeader header = RequestHeaderUtil.createHeader("API", "123456123456");
 			header.setApiKey("APCHDT");
@@ -38,11 +31,9 @@ public class Test {
 			cdr.setTxnRefNo("01234567890123456789012345678901");
 			cdr.setProxyNumber("012345678901");
 			cdr.setCustomerId("");
-
 			PayLoadValidator.getCardDetailPayLoad(cdr);
 
 			String requestXml = XmlRequestGenerator.generateXml(cdr);
-			System.out.println("\n" + requestXml + "\n");
 
 			EncryptDecryptUtility encryptionUtility = EncryptDecryptUtility.getInstance();
 			String msgRefNo = header.getMsgRefNo();
@@ -56,10 +47,6 @@ public class Test {
 			header.setSessionKey(encryptedSessionKey);
 			header.setToken(signedXml);
 
-			System.out.println("\nEncrypted xml: " + encryptedXml);
-			System.out.println("Encrypted session key: " + encryptedSessionKey);
-			System.out.println("Signed xml: " + signedXml + "\n");
-
 			RequestBody body = new RequestBody();
 			body.setRequest(encryptedXml);
 
@@ -67,7 +54,7 @@ public class Test {
 			req.setRequestBody(body);
 			req.setRequestHeader(header);
 
-			System.out.println("\nEcho response: " + port.echo("test, connection") + "\n");
+			System.out.println("\nEcho response: " + port.echo("test, connection"));
 			NaradaResponse res = port.serviceCall(req);
 			ResponseBody response = res.getResponseBody();
 
