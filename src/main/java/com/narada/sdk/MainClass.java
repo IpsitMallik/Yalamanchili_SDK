@@ -1,4 +1,4 @@
-package com.ottl.test;
+package com.narada.sdk;
 
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
@@ -7,8 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import org.apache.commons.lang3.ObjectUtils;
 
-import com.narada.sdk.NaradaSystem;
-import com.narada.sdk.NaradaSystemFactory;
 import com.narada.sdk.api_client.NaradaApiService;
 import com.narada.sdk.api_client.NaradaApiServicePortType;
 import com.narada.sdk.models.AccessRightsRequest;

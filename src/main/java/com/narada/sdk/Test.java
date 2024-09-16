@@ -16,8 +16,9 @@ import com.narada.sdk.utilities.XmlRequestGenerator;
 
 public class Test {
 	public static void main(String[] args) {
-		 cardDetail();
+		cardDetail();
 	}
+
 	private static void cardDetail() {
 		try {
 			NaradaApiService service = new NaradaApiService();
@@ -28,7 +29,7 @@ public class Test {
 			PayLoadValidator.requestHeaderPayLoad(header);
 
 			CardDetailRequest cdr = new CardDetailRequest();
-			cdr.setTxnRefNo("01234567890123456789012345678901");
+			cdr.setTxnRefNo("01234567890123456789012345678945");
 			cdr.setProxyNumber("012345678901");
 			cdr.setCustomerId("");
 			PayLoadValidator.getCardDetailPayLoad(cdr);
