@@ -3178,3 +3178,29 @@ com.narada.sdk.utilities.ServiceException: Received null response from service c
 2024-09-13 13:14:56 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
 2024-09-13 13:14:56 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
 2024-09-13 13:15:21 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl
+2024-09-16 10:42:57 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService?wsdl
+2024-09-16 10:42:58 WARN  o.a.cxf.phase.PhaseInterceptorChain - Interceptor for {http://services.api.ycs.com}NaradaApiService#{http://services.api.ycs.com}echo has thrown exception, unwinding now
+org.apache.cxf.interceptor.Fault: Could not send Message.
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:67)
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:307)
+	at org.apache.cxf.endpoint.ClientImpl.doInvoke(ClientImpl.java:530)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:441)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:356)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:314)
+	at org.apache.cxf.frontend.ClientProxy.invokeSync(ClientProxy.java:96)
+	at org.apache.cxf.jaxws.JaxWsClientProxy.invoke(JaxWsClientProxy.java:140)
+	at jdk.proxy2/jdk.proxy2.$Proxy45.echo(Unknown Source)
+	at com.narada.sdk.Test.cardDetail(Test.java:57)
+	at com.narada.sdk.Test.main(Test.java:19)
+Caused by: org.apache.cxf.transport.http.HTTPException: HTTP response '403: (POST https://uat2.yalamanchili.in/uaebaseapiservices/services/NaradaApiService) 403' when communicating with https://uat2.yalamanchili.in/uaebaseapiservices/services/NaradaApiService
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.doProcessResponseCode(HTTPConduit.java:1677)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponseInternal(HTTPConduit.java:1684)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponse(HTTPConduit.java:1626)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1420)
+	at org.apache.cxf.transport.http.HttpClientHTTPConduit$HttpClientWrappedOutputStream.close(HttpClientHTTPConduit.java:662)
+	at org.apache.cxf.transport.AbstractConduit.close(AbstractConduit.java:56)
+	at org.apache.cxf.transport.http.HTTPConduit.close(HTTPConduit.java:717)
+	at org.apache.cxf.transport.http.HttpClientHTTPConduit.close(HttpClientHTTPConduit.java:249)
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:63)
+	... 10 common frames omitted
+2024-09-16 10:52:01 INFO  o.a.c.w.s.f.ReflectionServiceFactoryBean - Creating Service {http://services.api.ycs.com}NaradaApiService from WSDL: file:/D:/Yalamanchili_SDK/target/classes/NaradaApiService.wsdl

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services.api.ycs.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://services.api.ycs.com" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax21="http://model.api.ycs.com/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.api.ycs.com/xsd">
+            <xs:complexType name="NaradaRequest">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="requestBody" type="ax21:RequestBody"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="requestHeader" type="ax21:RequestHeader"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestBody">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="request" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="RequestHeader">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="apiKey" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="apiPasswd" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="apiUserId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="channelType" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="clientId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="msgRefNo" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="msgTimeStamp" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="sessionKey" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="token" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="NaradaResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="responseBody" type="ax21:ResponseBody"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="responseHeader" type="ax21:ResponseHeader"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResponseBody">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" name="response" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="responseCode" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="0" name="responseText" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResponseHeader">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" name="apiKey" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="channelType" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="clientId" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="msgRefNo" type="xs:string"/>
+                    <xs:element maxOccurs="1" minOccurs="1" name="msgTimeStamp" type="xs:string"/>
+                    <xs:element minOccurs="0" name="sessionKey" type="xs:string"/>
+                    <xs:element minOccurs="0" name="token" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://services.api.ycs.com" xmlns:ax22="http://model.api.ycs.com/xsd">
+            <xs:import namespace="http://model.api.ycs.com/xsd"/>
+            <xs:element name="serviceCall">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" name="naradaRequest" type="ax21:NaradaRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="serviceCallResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" name="naradaResponse" type="ax21:NaradaResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" name="echoReq" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="echoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="0" name="echoResp" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="echoRequest">
+    <wsdl:part name="parameters" element="xsd:echo">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="serviceCallResponse">
+    <wsdl:part name="parameters" element="xsd:serviceCallResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="echoResponse">
+    <wsdl:part name="parameters" element="xsd:echoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="serviceCallRequest">
+    <wsdl:part name="parameters" element="xsd:serviceCall">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="NaradaApiServicePortType">
+    <wsdl:operation name="serviceCall">
+      <wsdl:input message="xsd:serviceCallRequest" wsaw:Action="urn:serviceCall">
+    </wsdl:input>
+      <wsdl:output message="xsd:serviceCallResponse" wsaw:Action="urn:serviceCallResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <wsdl:input message="xsd:echoRequest" wsaw:Action="urn:echo">
+    </wsdl:input>
+      <wsdl:output message="xsd:echoResponse" wsaw:Action="urn:echoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NaradaApiServiceSoap12Binding" type="xsd:NaradaApiServicePortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="serviceCall">
+      <soap12:operation soapAction="urn:serviceCall" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <soap12:operation soapAction="urn:echo" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NaradaApiServiceHttpBinding" type="xsd:NaradaApiServicePortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="serviceCall">
+      <http:operation location="serviceCall"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <http:operation location="echo"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NaradaApiServiceSoap11Binding" type="xsd:NaradaApiServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="serviceCall">
+      <soap:operation soapAction="urn:serviceCall" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="echo">
+      <soap:operation soapAction="urn:echo" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NaradaApiService">
+    <wsdl:port name="NaradaApiServiceHttpEndpoint" binding="xsd:NaradaApiServiceHttpBinding">
+      <http:address location="https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService"/>
+    </wsdl:port>
+    <wsdl:port name="NaradaApiServiceHttpSoap11Endpoint" binding="xsd:NaradaApiServiceSoap11Binding">
+      <soap:address location="https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService"/>
+    </wsdl:port>
+    <wsdl:port name="NaradaApiServiceHttpSoap12Endpoint" binding="xsd:NaradaApiServiceSoap12Binding">
+      <soap12:address location="https://uat2.yalamanchili.in/yseapiservices/services/NaradaApiService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
