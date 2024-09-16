@@ -30,15 +30,20 @@ public class NaradaApiService extends Service {
     static {
         URL url = null;
         try {
-            url = NaradaApiService.class.getClassLoader().getResource("NaradaApiService.wsdl");
-
+            // url =
+            // NaradaApiService.class.getClassLoader().getResource("NaradaApiService.wsdl");
+            url = Thread.currentThread().getContextClassLoader().getResource("NaradaApiService.wsdl");
         } catch (Exception e) {
             java.util.logging.Logger.getLogger(NaradaApiService.class.getName())
                     .log(java.util.logging.Level.INFO,
-                            "Can not initialize the default wsdl from {0}",
-                            "file:/D:/OpenTurf_Technologies/Projects/NaradaApiService.wsdl");
+                            "Can not initialize the default wsdl");
         }
         WSDL_LOCATION = url;
+        if (WSDL_LOCATION == null) {
+            System.out.println("WSDL not found in classpath!");
+        } else {
+            System.out.println("WSDL found at: " + WSDL_LOCATION);
+        }
     }
 
     public NaradaApiService(URL wsdlLocation) {
