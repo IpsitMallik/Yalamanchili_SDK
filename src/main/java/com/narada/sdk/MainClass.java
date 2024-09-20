@@ -77,15 +77,18 @@ public class MainClass {
 		cdr.setProxyNumber("012345678901");
 		cdr.setCustomerId("");
 
+		MainClass mc = new MainClass();
 		// getCardDetails(header, cdr);
-		callMethodByName("getCardDetails", header, cdr);
+		MainClass.callMethodByName("getCardDetails", header, cdr);
 	}
 
 	public static void callMethodByName(String methodName, RequestHeader header, Object request) {
+		System.out.println("\n-------------------callMethodByName-------------------------\n");
 		if (ObjectUtils.isEmpty(methodName) || header == null || request == null) {
 			throw new IllegalArgumentException("Method name, RequestHeader, and request object cannot be null.");
 		}
 		try {
+
 			// Get the class of the request object dynamically
 			Class<?> requestClass = request.getClass();
 			// Use getDeclaredMethod() to access private methods

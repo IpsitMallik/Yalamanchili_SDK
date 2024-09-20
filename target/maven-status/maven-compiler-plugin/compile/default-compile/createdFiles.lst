@@ -137,6 +137,7 @@ com\narada\sdk\MainClass.class
 com\narada\sdk\models\OTPRequestResponse.class
 com\narada\sdk\models\AddCardRequest$LoadDetails.class
 com\narada\sdk\models\StatusRequest.class
+com\narada\sdk\TestMain.class
 com\narada\sdk\models\DebitCreditAccountResponse.class
 com\narada\sdk\models\QueryBalanceResponse.class
 com\narada\sdk\utilities\ServiceException.class
