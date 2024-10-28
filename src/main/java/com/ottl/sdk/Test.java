@@ -15,7 +15,7 @@ public class Test {
 
 		RequestHeader header = ns.getHeader("API", "123456123456");
 		String jsonString = "{\n" +
-				"  \"TxnRefNo\": \"ASDHFG03612308\",\n" +
+				"  \"TxnRefNo\": \"ASDHFG03612309\",\n" +
 				"  \"ProxyNumber\": \"000000012869\",\n" +
 				"  \"CustomerId\": \"\"\n" +
 				"}";
