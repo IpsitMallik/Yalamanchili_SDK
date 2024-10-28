@@ -6,6 +6,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.cxf.interceptor.LoggingInInterceptor;
+import org.apache.cxf.interceptor.LoggingOutInterceptor;
 
 import com.narada.sdk.api_client.NaradaApiService;
 import com.narada.sdk.api_client.NaradaApiServicePortType;
@@ -65,7 +67,11 @@ public class MainClass {
 	private static final NaradaApiService service = new NaradaApiService();
 	private static final NaradaApiServicePortType port = service.getNaradaApiServiceHttpSoap12Endpoint();
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
+		org.apache.cxf.endpoint.Client client = org.apache.cxf.frontend.ClientProxy.getClient(port);
+		client.getInInterceptors().add(new LoggingInInterceptor());
+		client.getOutInterceptors().add(new LoggingOutInterceptor());
 
 		NaradaSystem ns = NaradaSystemFactory.getInstance();
 		System.out.println("\nEcho response: " + port.echo("test, connection"));
@@ -77,9 +83,9 @@ public class MainClass {
 		cdr.setProxyNumber("012345678901");
 		cdr.setCustomerId("");
 
-		MainClass mc = new MainClass();
-		// getCardDetails(header, cdr);
-		MainClass.callMethodByName("getCardDetails", header, cdr);
+		// MainClass mc = new MainClass();
+		getCardDetails(header, cdr);
+		// MainClass.callMethodByName("getCardDetails", header, cdr);
 	}
 
 	public static void callMethodByName(String methodName, RequestHeader header, Object request) {

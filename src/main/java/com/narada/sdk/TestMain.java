@@ -1,7 +1,9 @@
 package com.narada.sdk;
 
+import com.narada.sdk.api_client.SoapClient;
 import com.narada.sdk.models.CardDetailRequest;
 import com.narada.sdk.models.RequestHeader;
+import com.narada.sdk.utilities.XmlRequestGenerator;
 
 public class TestMain {
     public static void main(String[] args) {
@@ -14,6 +16,11 @@ public class TestMain {
         cdr.setProxyNumber("012345678901");
         cdr.setCustomerId("");
 
-        MainClass.callMethodByName("getCardDetails", header, cdr);
+        String req = XmlRequestGenerator.generateXml(cdr);
+        String msg = SoapClient.constructSoapMessage(req, header);
+
+        System.out.println(msg);
+
+        // MainClass.callMethodByName("getCardDetails", header, cdr);
     }
 }
