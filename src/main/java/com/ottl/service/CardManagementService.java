@@ -1,9 +1,5 @@
 package com.ottl.service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import com.ottl.model.*;
 import com.ottl.soapclient.NaradaApiServiceClient;
 import com.ottl.soapclient.RequestHeader;
@@ -21,8 +17,9 @@ public class CardManagementService {
 		this.serviceClient = new NaradaApiServiceClient();
 	}
 
-	public NewCardResponse issueNewCard(final RequestHeader rh, final NewCardRequest req) {
+	public String issueNewCard(final RequestHeader rh, final String json) {
 		try {
+			NewCardRequest req = JsonToObjectConverter.convertJsonToObject(json, NewCardRequest.class);
 			rh.setApiKey("APNCRD");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.issueNewCardPayLoad(req);
@@ -34,7 +31,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, NewCardResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -46,8 +43,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardDetailResponse getCardDetail(final RequestHeader rh, final CardDetailRequest req) {
+	public String getCardDetail(final RequestHeader rh, final String json) {
 		try {
+			CardDetailRequest req = JsonToObjectConverter.convertJsonToObject(json, CardDetailRequest.class);
 			rh.setApiKey("APCHDT");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getCardDetailPayLoad(req);
@@ -59,7 +57,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardDetailResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -70,8 +68,9 @@ public class CardManagementService {
 		}
 	}
 
-	public ActivateCardResponse acticateCard(final RequestHeader rh, final ActivateCardRequest req) {
+	public String acticateCard(final RequestHeader rh, final String json) {
 		try {
+			ActivateCardRequest req = JsonToObjectConverter.convertJsonToObject(json, ActivateCardRequest.class);
 			rh.setApiKey("APCDAC");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.activateCardPayLoad(req);
@@ -83,7 +82,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ActivateCardResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -94,8 +93,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardBlockOrUnblockRes blockOrUnblockCard(final RequestHeader rh, final CardBlockOrUnblockReq req) {
+	public String blockOrUnblockCard(final RequestHeader rh, final String json) {
 		try {
+			CardBlockOrUnblockReq req = JsonToObjectConverter.convertJsonToObject(json, CardBlockOrUnblockReq.class);
 			rh.setApiKey("ACDSTS");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.blockOrUnblockCardPayLoad(req);
@@ -107,7 +107,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardBlockOrUnblockRes.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -118,8 +118,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardReplaceResponse replaceCard(final RequestHeader rh, final CardReplaceRequest req) {
+	public String replaceCard(final RequestHeader rh, final String json) {
 		try {
+			CardReplaceRequest req = JsonToObjectConverter.convertJsonToObject(json, CardReplaceRequest.class);
 			rh.setApiKey("APCDRP");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.replaceCardPayLoad(req);
@@ -131,7 +132,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardReplaceResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -142,8 +143,9 @@ public class CardManagementService {
 		}
 	}
 
-	public LoadCardResponse loadCard(final RequestHeader rh, final LoadCardRequest req) {
+	public String loadCard(final RequestHeader rh, final String json) {
 		try {
+			LoadCardRequest req = JsonToObjectConverter.convertJsonToObject(json, LoadCardRequest.class);
 			rh.setApiKey("APLCRD");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.loadCardPayLoad(req);
@@ -155,7 +157,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, LoadCardResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -166,8 +168,9 @@ public class CardManagementService {
 		}
 	}
 
-	public XTransactionsResponse getXTransactions(final RequestHeader rh, final XTransactionsRequest req) {
+	public String getXTransactions(final RequestHeader rh, final String json) {
 		try {
+			XTransactionsRequest req = JsonToObjectConverter.convertJsonToObject(json, XTransactionsRequest.class);
 			rh.setApiKey("APXTXN");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getXTransactionsPayLoad(req);
@@ -179,7 +182,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, XTransactionsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -190,8 +193,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardOrderResponse cardOrder(final RequestHeader rh, final CardOrderRequest req) {
+	public String cardOrder(final RequestHeader rh, final String json) {
 		try {
+			CardOrderRequest req = JsonToObjectConverter.convertJsonToObject(json, CardOrderRequest.class);
 			rh.setApiKey("APCROR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.cardOrderPayLoad(req);
@@ -203,7 +207,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardOrderResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -214,11 +218,12 @@ public class CardManagementService {
 		}
 	}
 
-	public CardReceiptResponse cardReceipt(final RequestHeader rh, final CardReceiptRequest req) {
+	public String cardReceipt(final RequestHeader rh, final String json) {
 		try {
+			CardReceiptRequest req = JsonToObjectConverter.convertJsonToObject(json, CardReceiptRequest.class);
 			rh.setApiKey("APSTRC");
 			PayLoadValidator.requestHeaderPayLoad(rh);
-			PayLoadValidator.cardOrderPayLoad(req);
+			PayLoadValidator.cardReceiptPayLoad(req);
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -227,7 +232,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardReceiptResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -238,8 +243,10 @@ public class CardManagementService {
 		}
 	}
 
-	public UpdateStockDetailsResponse updateStockDetails(final RequestHeader rh, final UpdateStockDetailsRequest req) {
+	public String updateStockDetails(final RequestHeader rh, final String json) {
 		try {
+			UpdateStockDetailsRequest req = JsonToObjectConverter.convertJsonToObject(json,
+					UpdateStockDetailsRequest.class);
 			rh.setApiKey("APSKUP");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.updateStockDetailsPayLoad(req);
@@ -251,7 +258,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, UpdateStockDetailsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -262,8 +269,9 @@ public class CardManagementService {
 		}
 	}
 
-	public StockDetailsResponse getStockDetails(final RequestHeader rh, final StockDetailsRequest req) {
+	public String getStockDetails(final RequestHeader rh, final String json) {
 		try {
+			StockDetailsRequest req = JsonToObjectConverter.convertJsonToObject(json, StockDetailsRequest.class);
 			rh.setApiKey("APGTSD");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getStockDetailsPayLoad(req);
@@ -275,7 +283,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, StockDetailsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -286,8 +294,9 @@ public class CardManagementService {
 		}
 	}
 
-	public StatusResponse getStatusRequest(final RequestHeader rh, final StatusRequest req) {
+	public String getStatusRequest(final RequestHeader rh, final String json) {
 		try {
+			StatusRequest req = JsonToObjectConverter.convertJsonToObject(json, StatusRequest.class);
 			rh.setApiKey("APSTRQ");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getStatusRequestPayLoad(req);
@@ -299,7 +308,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, StatusResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -310,8 +319,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardNumberResponse getCardNumber(final RequestHeader rh, final CardNumberRequest req) {
+	public String getCardNumber(final RequestHeader rh, final String json) {
 		try {
+			CardNumberRequest req = JsonToObjectConverter.convertJsonToObject(json, CardNumberRequest.class);
 			rh.setApiKey("APIGCN");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getCardNumberPayLoad(req);
@@ -323,7 +333,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardNumberResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -334,8 +344,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CSCEnquiryResponse getCSCEnquiry(final RequestHeader rh, final CSCEnquiryRequest req) {
+	public String getCSCEnquiry(final RequestHeader rh, final String json) {
 		try {
+			CSCEnquiryRequest req = JsonToObjectConverter.convertJsonToObject(json, CSCEnquiryRequest.class);
 			rh.setApiKey("ACSENQ");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getCSCEnquiryPayLoad(req);
@@ -347,7 +358,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CSCEnquiryResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -358,8 +369,9 @@ public class CardManagementService {
 		}
 	}
 
-	public CardOrderStatusResponse getCardOrderStatus(final RequestHeader rh, final CardOrderStatusRequest req) {
+	public String getCardOrderStatus(final RequestHeader rh, final String json) {
 		try {
+			CardOrderStatusRequest req = JsonToObjectConverter.convertJsonToObject(json, CardOrderStatusRequest.class);
 			rh.setApiKey("APCOST");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.getCardOrderStatusPayLoad(req);
@@ -371,7 +383,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CardOrderStatusResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -382,12 +394,12 @@ public class CardManagementService {
 		}
 	}
 
-	public SetPinResponse setIVRPin(final RequestHeader rh, final SetPinRequest req) {
+	public String setIVRPin(final RequestHeader rh, final String json) {
 		try {
+			SetPinRequest req = JsonToObjectConverter.convertJsonToObject(json, SetPinRequest.class);
 			rh.setApiKey("APIIVR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.setIVRPinPayLoad(req);
-			req.setIvrPin(hashAndEncodePassword(req.getIvrPin()));
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -396,7 +408,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, SetPinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -407,13 +419,12 @@ public class CardManagementService {
 		}
 	}
 
-	public ChangeIvrPinResponse changeIVRPin(final RequestHeader rh, final ChangeIvrPinRequest req) {
+	public String changeIVRPin(final RequestHeader rh, final String json) {
 		try {
+			ChangeIvrPinRequest req = JsonToObjectConverter.convertJsonToObject(json, ChangeIvrPinRequest.class);
 			rh.setApiKey("APIIVC");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.changeIVRPinPayLoad(req);
-			req.setOldIvrPin(hashAndEncodePassword(req.getOldIvrPin()));
-			req.setNewIvrPin(hashAndEncodePassword(req.getNewIvrPin()));
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -422,7 +433,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ChangeIvrPinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -433,12 +444,12 @@ public class CardManagementService {
 		}
 	}
 
-	public ValidatePinResponse validateIVRPin(final RequestHeader rh, final ValidatePinRequest req) {
+	public String validateIVRPin(final RequestHeader rh, final String json) {
 		try {
+			ValidatePinRequest req = JsonToObjectConverter.convertJsonToObject(json, ValidatePinRequest.class);
 			rh.setApiKey("APIPNV");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.validateIVRPinPayLoad(req);
-			req.setIvrPin(hashAndEncodePassword(req.getIvrPin()));
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -447,7 +458,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ValidatePinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -458,8 +469,9 @@ public class CardManagementService {
 		}
 	}
 
-	public AddCardResponse addCardRequest(final RequestHeader rh, final AddCardRequest req) {
+	public String addCardRequest(final RequestHeader rh, final String json) {
 		try {
+			AddCardRequest req = JsonToObjectConverter.convertJsonToObject(json, AddCardRequest.class);
 			rh.setApiKey("APNADC");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			PayLoadValidator.addCardRequestPayLoad(req);
@@ -471,7 +483,7 @@ public class CardManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, AddCardResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -480,15 +492,6 @@ public class CardManagementService {
 		} catch (final Exception e) {
 			throw new ServiceException("0", e.getMessage(), e);
 		}
-	}
-
-	private static String hashAndEncodePassword(String password) throws NoSuchAlgorithmException {
-		// Hash the password using SHA-256
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hashedBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-		// Encode the hashed bytes into a BASE64 string
-		return Base64.getEncoder().encodeToString(hashedBytes);
 	}
 
 }

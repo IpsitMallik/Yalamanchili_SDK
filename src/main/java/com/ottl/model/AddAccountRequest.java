@@ -1,7 +1,5 @@
 package com.ottl.model;
 
-import java.util.List;
-
 import com.ottl.utils.XmlElementName;
 
 public class AddAccountRequest {

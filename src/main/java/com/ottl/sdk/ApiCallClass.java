@@ -70,10 +70,12 @@ public class ApiCallClass {
 
 			NaradaResponse res = port.serviceCall(req);
 			ResponseBody response = res.getResponseBody();
+			String reslt = encryptionUtility.decryptXmlResponse(response.getResponse(), res.getResponseHeader().getSessionKey(), res.getResponseHeader().getMsgRefNo());
+
 
 			System.out.println("\nResponse code: " + response.getResponseCode());
 			System.out.println("Response text: " + response.getResponseText());
-			System.out.println("Response: " + response.getResponse());
+			System.out.println("Response: " + reslt);
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -698,10 +700,12 @@ public class ApiCallClass {
 
 			NaradaResponse res = port.serviceCall(request);
 			ResponseBody response = res.getResponseBody();
-
+			
+			String reslt = encryptionUtility.decryptXmlResponse(response.getResponse(), res.getResponseHeader().getSessionKey(), res.getResponseHeader().getMsgRefNo());
+			
 			System.out.println("\nResponse code: " + response.getResponseCode());
 			System.out.println("Response text: " + response.getResponseText());
-			System.out.println("Response: " + response.getResponse());
+			System.out.println("Response: " + reslt);
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -715,7 +719,7 @@ public class ApiCallClass {
 
 			rh.setApiKey("APSTRC");
 			PayLoadValidator.requestHeaderPayLoad(rh);
-			PayLoadValidator.cardOrderPayLoad(req);
+			PayLoadValidator.cardReceiptPayLoad(req);
 
 			String requestXml = XmlRequestGenerator.generateXml(req);
 
@@ -1761,5 +1765,5 @@ public class ApiCallClass {
 			e.printStackTrace();
 		}
 	}
-
+	
 }

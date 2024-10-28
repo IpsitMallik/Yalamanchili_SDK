@@ -14,7 +14,6 @@ import com.ottl.utils.ServiceException;
 
 import java.util.Map;
 
-
 @SuppressWarnings("deprecation")
 public class NaradaApiServiceClient {
 
@@ -28,8 +27,8 @@ public class NaradaApiServiceClient {
 		NaradaApiService service = new NaradaApiService();
 		this.port = service.getNaradaApiServiceHttpSoap11Endpoint();
 		org.apache.cxf.endpoint.Client client = org.apache.cxf.frontend.ClientProxy.getClient(port);
-        client.getInInterceptors().add(new LoggingInInterceptor());
-        client.getOutInterceptors().add(new LoggingOutInterceptor());
+		client.getInInterceptors().add(new LoggingInInterceptor());
+		client.getOutInterceptors().add(new LoggingOutInterceptor());
 		configureRequestContext(this.port);
 	}
 
@@ -61,8 +60,8 @@ public class NaradaApiServiceClient {
 			NaradaRequest request = createNaradaRequest(header, encryptedXml);
 			NaradaResponse response = callServiceWithRetry(port, request, MAX_RETRIES);
 
-			return response != null ? verifyAndDecryptResponse(response, msgRefNo) : null;
-			
+			return response != null ? verifyAndDecryptResponse(response) : null;
+
 		} catch (Exception e) {
 			logger.error("An error occurred during service call", e);
 		}
@@ -82,22 +81,20 @@ public class NaradaApiServiceClient {
 		return body;
 	}
 
-	private ResponseBody verifyAndDecryptResponse(NaradaResponse response, String msgRefNo) throws Exception {
+	private ResponseBody verifyAndDecryptResponse(NaradaResponse response) throws Exception {
 		ResponseHeader responseHeader = response.getResponseHeader();
 		String encryptedSessionKey = responseHeader.getSessionKey();
-		String signedToken = responseHeader.getToken();
 		if (response.getResponseBody().getResponse() == null || response.getResponseBody().getResponse().isEmpty()) {
-			logger.error("Null response for message reference number: {}", msgRefNo);
-			throw new ServiceException("ERR_NULL_RESPONSE", "Received null response from service call.");
-        }
+			logger.error("Null response for message reference number: {}\nResponse code:{}\nResponse Text:{} ",
+					responseHeader.getMsgRefNo(), response.getResponseBody().getResponseCode(),
+					response.getResponseBody().getResponseText());
+			throw new ServiceException("ERR_NULL_RESPONSE",
+					"Received null response from service call. ");
+		}
 		String encryptedResponse = response.getResponseBody().getResponse();
 
-		String decryptedXmlResponse = encryptDecryptUtility.decryptXmlResponse(encryptedResponse, encryptedSessionKey, msgRefNo);
-
-		if (!encryptDecryptUtility.verifySignature(signedToken, decryptedXmlResponse)) {
-			logger.error("Invalid signature in response for message reference number: {}", msgRefNo);
-			throw new SecurityException("Invalid signature in response.");
-		}
+		String decryptedXmlResponse = encryptDecryptUtility.decryptXmlResponse(encryptedResponse, encryptedSessionKey,
+				responseHeader.getMsgRefNo());
 
 		ResponseBody responseBody = objFact.createResponseBody();
 		responseBody.setResponseCode(response.getResponseBody().getResponseCode());

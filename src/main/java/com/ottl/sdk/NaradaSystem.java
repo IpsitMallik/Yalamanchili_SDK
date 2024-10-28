@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import org.apache.commons.lang3.ObjectUtils;
 
-import com.ottl.model.*;
 import com.ottl.service.AccountManagementService;
 import com.ottl.service.CardManagementService;
 import com.ottl.soapclient.NaradaApiServiceClient;
@@ -23,53 +22,52 @@ public class NaradaSystem {
 	private final AccountManagementService accountManagementService = new AccountManagementService();
 
 	// Map to hold method names and corresponding method references
-	private final Map<String, BiFunction<RequestHeader, Object, Object>> methodMap = new HashMap<>();
+	private final Map<String, BiFunction<RequestHeader, String, String>> methodMap = new HashMap<>();
 
 	// Constructor to populate the method map
 	public NaradaSystem() {
 		// Populate the map with method names and corresponding method references
-		methodMap.put("getNewCard", (rh, req) -> getNewCard(rh, (NewCardRequest) req));
-		methodMap.put("getCardDetails", (rh, req) -> getCardDetails(rh, (CardDetailRequest) req));
-		methodMap.put("activateCard", (rh, req) -> activateCard(rh, (ActivateCardRequest) req));
-		methodMap.put("blockLockUnlockCard", (rh, req) -> blockLockUnlockCard(rh, (CardBlockOrUnblockReq) req));
-		methodMap.put("replaceCard", (rh, req) -> replaceCard(rh, (CardReplaceRequest) req));
-		methodMap.put("updateCustomerDetails", (rh, req) -> updateCustomerDetails(rh, (UpdateCustomerRequest) req));
-		methodMap.put("addAccount", (rh, req) -> addAccount(rh, (AddAccountRequest) req));
-		methodMap.put("loadCard", (rh, req) -> loadCard(rh, (LoadCardRequest) req));
-		methodMap.put("queryBalance", (rh, req) -> queryBalance(rh, (QueryBalanceRequest) req));
-		methodMap.put("refundAmount", (rh, req) -> refundAmount(rh, (RefundAmountRequest) req));
-		methodMap.put("accountClosure", (rh, req) -> accountClosure(rh, (AccountClosureRequest) req));
-		methodMap.put("getXTransactions", (rh, req) -> getXTransactions(rh, (XTransactionsRequest) req));
-		methodMap.put("debitCreditAccount", (rh, req) -> debitCreditAccount(rh, (DebitCreditAccountRequest) req));
-		methodMap.put("fundTransfer", (rh, req) -> fundTransfer(rh, (FundTransferRequest) req));
-		methodMap.put("updateExchangeRate", (rh, req) -> updateExchangeRate(rh, (UpdateExchangeRateRequest) req));
-		methodMap.put("cardOrder", (rh, req) -> cardOrder(rh, (CardOrderRequest) req));
-		methodMap.put("cardReceipt", (rh, req) -> cardReceipt(rh, (CardReceiptRequest) req));
-		methodMap.put("updateStockDetails", (rh, req) -> updateStockDetails(rh, (UpdateStockDetailsRequest) req));
-		methodMap.put("getStockDetails", (rh, req) -> getStockDetails(rh, (StockDetailsRequest) req));
-		methodMap.put("getStatusRequest", (rh, req) -> getStatusRequest(rh, (StatusRequest) req));
-		methodMap.put("createProfile", (rh, req) -> createProfile(rh, (ProfileCreationRequest) req));
-		methodMap.put("changePassword", (rh, req) -> changePassword(rh, (ChangePasswordRequest) req));
-		methodMap.put("getAccessRights", (rh, req) -> getAccessRights(rh, (AccessRightsRequest) req));
-		methodMap.put("retrieveATMPin", (rh, req) -> retrieveATMPin(rh, (RetrievePinRequest) req));
-		methodMap.put("verifyATMPin", (rh, req) -> verifyATMPin(rh, (VerifyPinRequest) req));
-		methodMap.put("changeATMPin", (rh, req) -> changeATMPin(rh, (ChangePinRequest) req));
-		methodMap.put("assignOverrideSettings", (rh, req) -> assignOverrideSettings(rh, (OverrideSettingsRequest) req));
-		methodMap.put("alertSettings", (rh, req) -> alertSettings(rh, (AlertSettingsRequest) req));
-		methodMap.put("getCardNumber", (rh, req) -> getCardNumber(rh, (CardNumberRequest) req));
-		methodMap.put("getCSCEnquiry", (rh, req) -> getCSCEnquiry(rh, (CSCEnquiryRequest) req));
-		methodMap.put("getCardOrderStatus", (rh, req) -> getCardOrderStatus(rh, (CardOrderStatusRequest) req));
-		methodMap.put("setIVRPin", (rh, req) -> setIVRPin(rh, (SetPinRequest) req));
-		methodMap.put("changeIVRPin", (rh, req) -> changeIVRPin(rh, (ChangeIvrPinRequest) req));
-		methodMap.put("validateIVRPin", (rh, req) -> validateIVRPin(rh, (ValidatePinRequest) req));
-		methodMap.put("resetWebPassword", (rh, req) -> resetWebPassword(rh, (ResetPasswordRequest) req));
-		methodMap.put("setATMPin", (rh, req) -> setATMPin(rh, (SetAtmPinRequest) req));
-		methodMap.put("newOTPRequest", (rh, req) -> newOTPRequest(rh, (OTPRequest) req));
-		methodMap.put("otpValidation", (rh, req) -> otpValidation(rh, (OTPValidationRequest) req));
-		methodMap.put("retrieveWebProfile", (rh, req) -> retrieveWebProfile(rh, (WebProfileRequest) req));
-		methodMap.put("corporateRegistration",
-				(rh, req) -> corporateRegistration(rh, (CorporateRegistrationRequest) req));
-		methodMap.put("addCardRequest", (rh, req) -> addCardRequest(rh, (AddCardRequest) req));
+		methodMap.put("getNewCard", (rh, req) -> getNewCard(rh, req));
+		methodMap.put("getCardDetails", (rh, req) -> getCardDetails(rh, req));
+		methodMap.put("activateCard", (rh, req) -> activateCard(rh, req));
+		methodMap.put("blockLockUnlockCard", (rh, req) -> blockLockUnlockCard(rh, req));
+		methodMap.put("replaceCard", (rh, req) -> replaceCard(rh, req));
+		methodMap.put("updateCustomerDetails", (rh, req) -> updateCustomerDetails(rh, req));
+		methodMap.put("addAccount", (rh, req) -> addAccount(rh, req));
+		methodMap.put("loadCard", (rh, req) -> loadCard(rh, req));
+		methodMap.put("queryBalance", (rh, req) -> queryBalance(rh, req));
+		methodMap.put("refundAmount", (rh, req) -> refundAmount(rh, req));
+		methodMap.put("accountClosure", (rh, req) -> accountClosure(rh, req));
+		methodMap.put("getXTransactions", (rh, req) -> getXTransactions(rh, req));
+		methodMap.put("debitCreditAccount", (rh, req) -> debitCreditAccount(rh, req));
+		methodMap.put("fundTransfer", (rh, req) -> fundTransfer(rh, req));
+		methodMap.put("updateExchangeRate", (rh, req) -> updateExchangeRate(rh, req));
+		methodMap.put("cardOrder", (rh, req) -> cardOrder(rh, req));
+		methodMap.put("cardReceipt", (rh, req) -> cardReceipt(rh, req));
+		methodMap.put("updateStockDetails", (rh, req) -> updateStockDetails(rh, req));
+		methodMap.put("getStockDetails", (rh, req) -> getStockDetails(rh, req));
+		methodMap.put("getStatusRequest", (rh, req) -> getStatusRequest(rh, req));
+		methodMap.put("createProfile", (rh, req) -> createProfile(rh, req));
+		methodMap.put("changePassword", (rh, req) -> changePassword(rh, req));
+		methodMap.put("getAccessRights", (rh, req) -> getAccessRights(rh, req));
+		methodMap.put("retrieveATMPin", (rh, req) -> retrieveATMPin(rh, req));
+		methodMap.put("verifyATMPin", (rh, req) -> verifyATMPin(rh, req));
+		methodMap.put("changeATMPin", (rh, req) -> changeATMPin(rh, req));
+		methodMap.put("assignOverrideSettings", (rh, req) -> assignOverrideSettings(rh, req));
+		methodMap.put("alertSettings", (rh, req) -> alertSettings(rh, req));
+		methodMap.put("getCardNumber", (rh, req) -> getCardNumber(rh, req));
+		methodMap.put("getCSCEnquiry", (rh, req) -> getCSCEnquiry(rh, req));
+		methodMap.put("getCardOrderStatus", (rh, req) -> getCardOrderStatus(rh, req));
+		methodMap.put("setIVRPin", (rh, req) -> setIVRPin(rh, req));
+		methodMap.put("changeIVRPin", (rh, req) -> changeIVRPin(rh, req));
+		methodMap.put("validateIVRPin", (rh, req) -> validateIVRPin(rh, req));
+		methodMap.put("resetWebPassword", (rh, req) -> resetWebPassword(rh, req));
+		methodMap.put("setATMPin", (rh, req) -> setATMPin(rh, req));
+		methodMap.put("newOTPRequest", (rh, req) -> newOTPRequest(rh, req));
+		methodMap.put("otpValidation", (rh, req) -> otpValidation(rh, req));
+		methodMap.put("retrieveWebProfile", (rh, req) -> retrieveWebProfile(rh, req));
+		methodMap.put("corporateRegistration", (rh, req) -> corporateRegistration(rh, req));
+		methodMap.put("addCardRequest", (rh, req) -> addCardRequest(rh, req));
 	}
 
 	/**
@@ -89,12 +87,18 @@ public class NaradaSystem {
 	 * @throws NoSuchMethodException    If no method with the given
 	 *                                  {@code methodName} is found.
 	 */
-	public Object invokeServiceMethod(String methodName, RequestHeader rh, Object req) {
-		if (ObjectUtils.isEmpty(methodName) || rh == null || req == null) {
-			throw new IllegalArgumentException("Method name, RequestHeader, and request object cannot be null.");
+	public String invokeServiceMethod(String methodName, RequestHeader rh, String req) throws NoSuchMethodException {
+		if (ObjectUtils.isEmpty(methodName)) {
+		    throw new IllegalArgumentException("Method name is required.");
+		}
+		if (rh == null) {
+		    throw new IllegalArgumentException("RequestHeader is required.");
+		}
+		if (req == null || ObjectUtils.isEmpty(req)) {
+		    throw new IllegalArgumentException("Request is required.");
 		}
 
-		BiFunction<RequestHeader, Object, Object> method = methodMap.get(methodName);
+		BiFunction<RequestHeader, String, String> method = methodMap.get(methodName);
 
 		if (method == null) {
 			throw new NoSuchMethodException("No such method found: " + methodName);
@@ -147,7 +151,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for issuing the card
 	 * @return response containing the result of the new card issuance
 	 */
-	public NewCardResponse getNewCard(final RequestHeader rh, final NewCardRequest req) {
+	public String getNewCard(final RequestHeader rh, final String req) {
 		return cardManagementService.issueNewCard(rh, req);
 	}
 
@@ -159,7 +163,7 @@ public class NaradaSystem {
 	 *            information
 	 * @return response containing card details
 	 */
-	public CardDetailResponse getCardDetails(final RequestHeader rh, final CardDetailRequest req) {
+	public String getCardDetails(final RequestHeader rh, final String req) {
 		return cardManagementService.getCardDetail(rh, req);
 	}
 
@@ -170,7 +174,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for activating the card
 	 * @return response containing the result of the card activation
 	 */
-	public ActivateCardResponse activateCard(final RequestHeader rh, final ActivateCardRequest req) {
+	public String activateCard(final RequestHeader rh, final String req) {
 		return cardManagementService.acticateCard(rh, req);
 	}
 
@@ -182,7 +186,7 @@ public class NaradaSystem {
 	 *            unlocking the card
 	 * @return response containing the result of the operation
 	 */
-	public CardBlockOrUnblockRes blockLockUnlockCard(final RequestHeader rh, final CardBlockOrUnblockReq req) {
+	public String blockLockUnlockCard(final RequestHeader rh, final String req) {
 		return cardManagementService.blockOrUnblockCard(rh, req);
 	}
 
@@ -193,7 +197,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for replacing the card
 	 * @return response containing the result of the card replacement
 	 */
-	public CardReplaceResponse replaceCard(final RequestHeader rh, final CardReplaceRequest req) {
+	public String replaceCard(final RequestHeader rh, final String req) {
 		return cardManagementService.replaceCard(rh, req);
 	}
 
@@ -204,7 +208,7 @@ public class NaradaSystem {
 	 * @param req the request object containing customer details to be updated
 	 * @return response containing the result of the update operation
 	 */
-	public UpdateCustomerResponse updateCustomerDetails(final RequestHeader rh, final UpdateCustomerRequest req) {
+	public String updateCustomerDetails(final RequestHeader rh, final String req) {
 		return accountManagementService.updateCustomerDetails(rh, req);
 	}
 
@@ -215,7 +219,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for adding the account
 	 * @return response containing the result of the account addition
 	 */
-	public AddAccountResponse addAccount(final RequestHeader rh, final AddAccountRequest req) {
+	public String addAccount(final RequestHeader rh, final String req) {
 		return accountManagementService.addAccount(rh, req);
 	}
 
@@ -226,7 +230,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for loading the card
 	 * @return response containing the result of the card load
 	 */
-	public LoadCardResponse loadCard(final RequestHeader rh, final LoadCardRequest req) {
+	public String loadCard(final RequestHeader rh, final String req) {
 		return cardManagementService.loadCard(rh, req);
 	}
 
@@ -237,7 +241,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for querying the balance
 	 * @return response containing the account balance
 	 */
-	public QueryBalanceResponse queryBalance(final RequestHeader rh, final QueryBalanceRequest req) {
+	public String queryBalance(final RequestHeader rh, final String req) {
 		return accountManagementService.queryBalance(rh, req);
 	}
 
@@ -248,7 +252,7 @@ public class NaradaSystem {
 	 * @param req the request object containing refund details
 	 * @return response containing the result of the refund
 	 */
-	public RefundAmountResponse refundAmount(final RequestHeader rh, final RefundAmountRequest req) {
+	public String refundAmount(final RequestHeader rh, final String req) {
 		return accountManagementService.refundAmount(rh, req);
 	}
 
@@ -259,7 +263,7 @@ public class NaradaSystem {
 	 * @param req the request object containing details for account closure
 	 * @return response containing the result of the account closure
 	 */
-	public AccountClosureResponse accountClosure(final RequestHeader rh, final AccountClosureRequest req) {
+	public String accountClosure(final RequestHeader rh, final String req) {
 		return accountManagementService.accountClosure(rh, req);
 	}
 
@@ -270,7 +274,7 @@ public class NaradaSystem {
 	 * @param req the request object containing transaction request details
 	 * @return response containing transaction details
 	 */
-	public XTransactionsResponse getXTransactions(final RequestHeader rh, final XTransactionsRequest req) {
+	public String getXTransactions(final RequestHeader rh, final String req) {
 		return cardManagementService.getXTransactions(rh, req);
 	}
 
@@ -281,7 +285,7 @@ public class NaradaSystem {
 	 * @param req the request object containing debit/credit details
 	 * @return response containing the result of the debit/credit operation
 	 */
-	public DebitCreditAccountResponse debitCreditAccount(final RequestHeader rh, final DebitCreditAccountRequest req) {
+	public String debitCreditAccount(final RequestHeader rh, final String req) {
 		return accountManagementService.debitCreditAccount(rh, req);
 	}
 
@@ -292,7 +296,7 @@ public class NaradaSystem {
 	 * @param req the request object containing fund transfer details
 	 * @return response containing the result of the fund transfer
 	 */
-	public FundTransferResponse fundTransfer(final RequestHeader rh, final FundTransferRequest req) {
+	public String fundTransfer(final RequestHeader rh, final String req) {
 		return accountManagementService.fundTransfer(rh, req);
 	}
 
@@ -303,7 +307,7 @@ public class NaradaSystem {
 	 * @param req the request object containing exchange rate details
 	 * @return response containing the result of the exchange rate update
 	 */
-	public UpdateExchangeRateResponse updateExchangeRate(final RequestHeader rh, final UpdateExchangeRateRequest req) {
+	public String updateExchangeRate(final RequestHeader rh, final String req) {
 		return accountManagementService.updateExchangeRate(rh, req);
 	}
 
@@ -314,7 +318,7 @@ public class NaradaSystem {
 	 * @param req the request object containing card order details
 	 * @return response containing the result of the card order
 	 */
-	public CardOrderResponse cardOrder(final RequestHeader rh, final CardOrderRequest req) {
+	public String cardOrder(final RequestHeader rh, final String req) {
 		return cardManagementService.cardOrder(rh, req);
 	}
 
@@ -325,7 +329,7 @@ public class NaradaSystem {
 	 * @param req the request object containing card receipt details
 	 * @return response containing the result of the card receipt confirmation
 	 */
-	public CardReceiptResponse cardReceipt(final RequestHeader rh, final CardReceiptRequest req) {
+	public String cardReceipt(final RequestHeader rh, final String req) {
 		return cardManagementService.cardReceipt(rh, req);
 	}
 
@@ -336,7 +340,7 @@ public class NaradaSystem {
 	 * @param req the request object containing stock update details
 	 * @return response containing the result of the stock update
 	 */
-	public UpdateStockDetailsResponse updateStockDetails(final RequestHeader rh, final UpdateStockDetailsRequest req) {
+	public String updateStockDetails(final RequestHeader rh, final String req) {
 		return cardManagementService.updateStockDetails(rh, req);
 	}
 
@@ -347,7 +351,7 @@ public class NaradaSystem {
 	 * @param req the request object containing stock query details
 	 * @return response containing stock details
 	 */
-	public StockDetailsResponse getStockDetails(final RequestHeader rh, final StockDetailsRequest req) {
+	public String getStockDetails(final RequestHeader rh, final String req) {
 		return cardManagementService.getStockDetails(rh, req);
 	}
 
@@ -358,7 +362,7 @@ public class NaradaSystem {
 	 * @param req the request object containing status request details
 	 * @return response containing the status of the request
 	 */
-	public StatusResponse getStatusRequest(final RequestHeader rh, final StatusRequest req) {
+	public String getStatusRequest(final RequestHeader rh, final String req) {
 		return cardManagementService.getStatusRequest(rh, req);
 	}
 
@@ -369,7 +373,7 @@ public class NaradaSystem {
 	 * @param req the request object containing profile creation details
 	 * @return response containing the result of profile creation
 	 */
-	public ProfileCreationResponse createProfile(final RequestHeader rh, final ProfileCreationRequest req) {
+	public String createProfile(final RequestHeader rh, final String req) {
 		return accountManagementService.createProfile(rh, req);
 	}
 
@@ -380,7 +384,7 @@ public class NaradaSystem {
 	 * @param req the request object containing password change details
 	 * @return response containing the result of the password change
 	 */
-	public ChangePasswordResponse changePassword(final RequestHeader rh, final ChangePasswordRequest req) {
+	public String changePassword(final RequestHeader rh, final String req) {
 		return accountManagementService.changePassword(rh, req);
 	}
 
@@ -391,7 +395,7 @@ public class NaradaSystem {
 	 * @param req the request object containing access rights request details
 	 * @return response containing the access rights information
 	 */
-	public AccessRightsResponse getAccessRights(final RequestHeader rh, final AccessRightsRequest req) {
+	public String getAccessRights(final RequestHeader rh, final String req) {
 		return accountManagementService.getAccessRights(rh, req);
 	}
 
@@ -402,7 +406,7 @@ public class NaradaSystem {
 	 * @param req the request object containing ATM PIN retrieval details
 	 * @return response containing the ATM PIN
 	 */
-	public RetrievePinResponse retrieveATMPin(final RequestHeader rh, final RetrievePinRequest req) {
+	public String retrieveATMPin(final RequestHeader rh, final String req) {
 		return accountManagementService.retrieveATMPin(rh, req);
 	}
 
@@ -413,7 +417,7 @@ public class NaradaSystem {
 	 * @param req the request object containing ATM PIN verification details
 	 * @return response containing the result of ATM PIN verification
 	 */
-	public VerifyPinResponse verifyATMPin(final RequestHeader rh, final VerifyPinRequest req) {
+	public String verifyATMPin(final RequestHeader rh, final String req) {
 		return accountManagementService.verifyATMPin(rh, req);
 	}
 
@@ -424,7 +428,7 @@ public class NaradaSystem {
 	 * @param req the request object containing ATM PIN change details
 	 * @return response containing the result of the ATM PIN change
 	 */
-	public ChangePinResponse changeATMPin(final RequestHeader rh, final ChangePinRequest req) {
+	public String changeATMPin(final RequestHeader rh, final String req) {
 		return accountManagementService.changeATMPin(rh, req);
 	}
 
@@ -435,7 +439,7 @@ public class NaradaSystem {
 	 * @param req the request object containing override settings details
 	 * @return response containing the result of assigning override settings
 	 */
-	public OverrideSettingsResponse assignOverrideSettings(final RequestHeader rh, final OverrideSettingsRequest req) {
+	public String assignOverrideSettings(final RequestHeader rh, final String req) {
 		return accountManagementService.assignOverrideSettings(rh, req);
 	}
 
@@ -446,7 +450,7 @@ public class NaradaSystem {
 	 * @param req the request object containing alert settings details
 	 * @return response containing the result of the alert settings configuration
 	 */
-	public AlertSettingsResponse alertSettings(final RequestHeader rh, final AlertSettingsRequest req) {
+	public String alertSettings(final RequestHeader rh, final String req) {
 		return accountManagementService.alertSettings(rh, req);
 	}
 
@@ -457,7 +461,7 @@ public class NaradaSystem {
 	 * @param req the request object containing card number request details
 	 * @return response containing the card number
 	 */
-	public CardNumberResponse getCardNumber(final RequestHeader rh, final CardNumberRequest req) {
+	public String getCardNumber(final RequestHeader rh, final String req) {
 		return cardManagementService.getCardNumber(rh, req);
 	}
 
@@ -468,7 +472,7 @@ public class NaradaSystem {
 	 * @param req the request object containing CSC enquiry details
 	 * @return response containing CSC enquiry information
 	 */
-	public CSCEnquiryResponse getCSCEnquiry(final RequestHeader rh, final CSCEnquiryRequest req) {
+	public String getCSCEnquiry(final RequestHeader rh, final String req) {
 		return cardManagementService.getCSCEnquiry(rh, req);
 	}
 
@@ -479,7 +483,7 @@ public class NaradaSystem {
 	 * @param req the request object containing card order status request details
 	 * @return response containing the card order status
 	 */
-	public CardOrderStatusResponse getCardOrderStatus(final RequestHeader rh, final CardOrderStatusRequest req) {
+	public String getCardOrderStatus(final RequestHeader rh, final String req) {
 		return cardManagementService.getCardOrderStatus(rh, req);
 	}
 
@@ -490,7 +494,7 @@ public class NaradaSystem {
 	 * @param req the request object containing IVR PIN set details
 	 * @return response containing the result of setting the IVR PIN
 	 */
-	public SetPinResponse setIVRPin(final RequestHeader rh, final SetPinRequest req) {
+	public String setIVRPin(final RequestHeader rh, final String req) {
 		return cardManagementService.setIVRPin(rh, req);
 	}
 
@@ -501,7 +505,7 @@ public class NaradaSystem {
 	 * @param req the request object containing IVR PIN change details
 	 * @return response containing the result of changing the IVR PIN
 	 */
-	public ChangeIvrPinResponse changeIVRPin(final RequestHeader rh, final ChangeIvrPinRequest req) {
+	public String changeIVRPin(final RequestHeader rh, final String req) {
 		return cardManagementService.changeIVRPin(rh, req);
 	}
 
@@ -512,7 +516,7 @@ public class NaradaSystem {
 	 * @param req the request object containing IVR PIN validation details
 	 * @return response containing the result of validating the IVR PIN
 	 */
-	public ValidatePinResponse validateIVRPin(final RequestHeader rh, final ValidatePinRequest req) {
+	public String validateIVRPin(final RequestHeader rh, final String req) {
 		return cardManagementService.validateIVRPin(rh, req);
 	}
 
@@ -523,7 +527,7 @@ public class NaradaSystem {
 	 * @param req the request object containing password reset details
 	 * @return response containing the result of the password reset
 	 */
-	public ResetPasswordResponse resetWebPassword(final RequestHeader rh, final ResetPasswordRequest req) {
+	public String resetWebPassword(final RequestHeader rh, final String req) {
 		return accountManagementService.resetWebPassword(rh, req);
 	}
 
@@ -534,7 +538,7 @@ public class NaradaSystem {
 	 * @param req the request object containing ATM PIN set details
 	 * @return response containing the result of setting the ATM PIN
 	 */
-	public SetAtmPinResponse setATMPin(final RequestHeader rh, final SetAtmPinRequest req) {
+	public String setATMPin(final RequestHeader rh, final String req) {
 		return accountManagementService.setATMPin(rh, req);
 	}
 
@@ -545,7 +549,7 @@ public class NaradaSystem {
 	 * @param req the request object containing OTP request details
 	 * @return response containing the result of the OTP request
 	 */
-	public OTPRequestResponse newOTPRequest(final RequestHeader rh, final OTPRequest req) {
+	public String newOTPRequest(final RequestHeader rh, final String req) {
 		return accountManagementService.newOTPRequest(rh, req);
 	}
 
@@ -556,7 +560,7 @@ public class NaradaSystem {
 	 * @param req the request object containing OTP validation details
 	 * @return response containing the result of the OTP validation
 	 */
-	public OTPValidationResponse otpValidation(final RequestHeader rh, final OTPValidationRequest req) {
+	public String otpValidation(final RequestHeader rh, final String req) {
 		return accountManagementService.otpValidation(rh, req);
 	}
 
@@ -567,7 +571,7 @@ public class NaradaSystem {
 	 * @param req the request object containing web profile request details
 	 * @return response containing the web profile
 	 */
-	public WebProfileResponse retrieveWebProfile(final RequestHeader rh, final WebProfileRequest req) {
+	public String retrieveWebProfile(final RequestHeader rh, final String req) {
 		return accountManagementService.retrieveWebProfile(rh, req);
 	}
 
@@ -578,7 +582,7 @@ public class NaradaSystem {
 	 * @param req the request object containing corporate registration details
 	 * @return response containing the result of the corporate registration
 	 */
-	public CorporateRegistrationResponse corporateRegistration(final RequestHeader rh, final CorporateRegistrationRequest req) {
+	public String corporateRegistration(final RequestHeader rh, final String req) {
 		return accountManagementService.corporateRegistration(rh, req);
 	}
 
@@ -589,7 +593,7 @@ public class NaradaSystem {
 	 * @param req the request object containing card request details
 	 * @return response containing the result of the card addition
 	 */
-	public AddCardResponse addCardRequest(final RequestHeader rh, final AddCardRequest req) {
+	public String addCardRequest(final RequestHeader rh, final String req) {
 		return cardManagementService.addCardRequest(rh, req);
 	}
 

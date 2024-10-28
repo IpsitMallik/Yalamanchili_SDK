@@ -99,7 +99,6 @@ com\ottl\utils\JsonToObjectConverter.class
 com\ottl\model\CorporateRegistrationRequest$LoadDetails.class
 com\ottl\model\SetAtmPinResponse.class
 com\ottl\model\AddCardResponse.class
-com\ottl\model\UpdateExchangeRateRequest$Detail.class
 com\ottl\model\WebProfileResponse.class
 com\ottl\utils\EncryptDecryptUtility.class
 com\ottl\soapclient\NaradaRequest.class
@@ -119,6 +118,7 @@ com\ottl\utils\XmlGenerationException.class
 com\ottl\model\OTPValidationResponse.class
 com\ottl\model\OverrideSettingsResponse.class
 com\ottl\model\ChangePasswordRequest.class
+com\ottl\model\UpdateExchangeRateRequest$ExRates$Detail.class
 com\ottl\model\UpdateCustomerRequest$CustomerInfo$Address.class
 com\ottl\model\ActivateCardRequest.class
 com\ottl\soapclient\ResponseHeader.class
@@ -134,6 +134,7 @@ com\ottl\model\ChangeIvrPinResponse.class
 com\ottl\soapclient\Echo.class
 com\ottl\utils\XMLResponseParser.class
 com\ottl\model\UpdateCustomerRequest$CustomerInfo.class
+com\ottl\model\UpdateExchangeRateRequest$ExRates.class
 com\ottl\model\CardBlockOrUnblockRes.class
 com\ottl\model\UpdateExchangeRateResponse.class
 com\ottl\model\CardDetailResponse$ProductInfo.class

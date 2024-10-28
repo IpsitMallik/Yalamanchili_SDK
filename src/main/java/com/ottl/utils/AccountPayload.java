@@ -31,10 +31,10 @@ import com.ottl.model.UpdateCustomerRequest.CustomerInfo.IdentificationType;
 import com.ottl.model.UpdateExchangeRateRequest;
 import com.ottl.model.VerifyPinRequest;
 import com.ottl.model.WebProfileRequest;
-import com.ottl.model.UpdateExchangeRateRequest.Detail;
+import com.ottl.model.UpdateExchangeRateRequest.ExRates.Detail;
 
 public class AccountPayload {
-	private static final Pattern MOBILE_NUMBER_PATTERN = Pattern.compile("^\\+\\d{1,3}\\d{4,14}$");
+	private static final Pattern MOBILE_NUMBER_PATTERN = Pattern.compile("^\\d+(-\\d+)*$");
 	private static final Pattern EMAIL_PATTERN = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
 	private static final String DATE_FORMAT = "ddMMyyyy";
 	private static final Pattern CURRENCY_PATTERN = Pattern.compile("^[A-Z]{3}$");
@@ -115,17 +115,17 @@ public class AccountPayload {
 		if (request == null) {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateField("UserId", request.getUserId(), true, 8, 8);
 		ValidationUtil.validateField("Password", request.getPassword(), true, 8, 16);
 
 		if (request.getEmailId() != null) {
-			ValidationUtil.validateField("EmailId", request.getEmailId(), false, 0, 50);
+			ValidationUtil.validatePattern("EmailId", request.getEmailId(), false, 0, 50,EMAIL_PATTERN);
 		}
 
 		if (request.getMobileNumber() != null) {
-			ValidationUtil.validateField("MobileNumber", request.getMobileNumber(), false, 0, 15);
+			ValidationUtil.validatePattern("MobileNumber", request.getMobileNumber(), false, 0, 15,MOBILE_NUMBER_PATTERN);
 		}
 	}
 
@@ -134,7 +134,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 12);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("OldPassword", request.getOldPassword(), true, 8, 16);
 		ValidationUtil.validateField("NewPassword", request.getNewPassword(), true, 8, 16);
 	}
@@ -144,7 +144,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("UserId", request.getUserId(), true, 8, 8);
 	}
 
@@ -152,12 +152,12 @@ public class AccountPayload {
 		if (request == null) {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateField("ProductCode", request.getProductCode(), true, 6, 6);
 		ValidationUtil.validateEnumeration("Type", request.getType(), true, 3, 3, TYPE_PATTERN);
 		ValidationUtil.validateEnumeration("Flag", request.getFlag(), true, 2, 2, FLAG_PATTERN);
-		ValidationUtil.validatePattern("Amount", request.getAmount(), true, 12, 12, AMOUNT_PATTERN);
+		ValidationUtil.validatePattern("Amount", request.getAmount(), true, 1, 12, AMOUNT_PATTERN);
 		ValidationUtil.validatePattern("Currency", request.getCurrency(), true, 3, 3, CURRENCY_PATTERN);
 		ValidationUtil.validateField("Remarks", request.getRemarks(), true, 1, 250);
 	}
@@ -166,7 +166,7 @@ public class AccountPayload {
 		if (request == null) {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ExchangeRate", request.getExchangeRate(), false, 0, 12);
 
 		if (request.getSourceAccount() != null) {
@@ -187,7 +187,7 @@ public class AccountPayload {
 					6);
 			ValidationUtil.validatePattern("DestAccount AccountCcy", request.getDestAccount().getAccountCcy(), true, 3,
 					3, CURRENCY_PATTERN);
-			ValidationUtil.validateField("DestAccount Amount", request.getDestAccount().getAmount(), true, 12, 12);
+			ValidationUtil.validateField("DestAccount Amount", request.getDestAccount().getAmount(), true, 1, 12);
 		} else {
 			throw new ValidationFailedException("DestAccount is required.");
 		}
@@ -198,16 +198,17 @@ public class AccountPayload {
 		if (request == null) {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
-		if (request.getExRates() == null || request.getExRates().isEmpty()) {
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
+		if (request.getExRates() != null && request.getExRates().getDetail() != null) {
+			for (Detail detail : request.getExRates().getDetail()) {
+				ValidationUtil.validatePattern("BuyCurrency", detail.getBuyCurrency(), true, 3, 3, CURRENCY_PATTERN);
+				ValidationUtil.validatePattern("SellCurrency", detail.getSellCurrency(), true, 3, 3, CURRENCY_PATTERN);
+				ValidationUtil.validateField("ExRate", detail.getExRate(), true, 0, 12);
+			}
+		} else {
 			throw new ValidationFailedException("At least one ExRates/Detail must be provided.");
 		}
 
-		for (Detail detail : request.getExRates()) {
-			ValidationUtil.validatePattern("BuyCurrency", detail.getBuyCurrency(), true, 3, 3, CURRENCY_PATTERN);
-			ValidationUtil.validatePattern("SellCurrency", detail.getSellCurrency(), true, 3, 3, CURRENCY_PATTERN);
-			ValidationUtil.validateField("ExRate", detail.getExRate(), true, 0, 12);
-		}
 	}
 
 	public static void retrieveATMPinPayLoad(RetrievePinRequest request) throws ValidationFailedException {
@@ -215,7 +216,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateDate("ExpiryDate", request.getExpiryDate(), true, 4, 4, EXP_DATE_FORMAT);
 		ValidationUtil.validateField("CVV2", request.getCvv2(), true, 3, 3);
@@ -227,7 +228,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validatePattern("EPinBlock", request.getEPinBlock(), true, 16, 16, ATM_EPINBLOCK);
 		ValidationUtil.validateDate("DOB", request.getDob(), true, 8, 8, DATE_FORMAT);
@@ -238,7 +239,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validatePattern("EoldPinBlock", request.getEOldPinBlock(), true, 16, 16, ATM_EPINBLOCK);
 		ValidationUtil.validatePattern("EnewPinBlock", request.getENewPinBlock(), true, 16, 16, ATM_EPINBLOCK);
@@ -249,9 +250,9 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
-		ValidationUtil.validateField("CampaignCode", request.getCampaignCode(), true, 10, 10);
+		ValidationUtil.validateField("CampaignCode", request.getCampaignCode(), true, 1, 10);
 		ValidationUtil.validateField("ProductCode", request.getProductCode(), true, 6, 6);
 		ValidationUtil.validatePattern("Flag", request.getFlag(), true, 1, 1, YN_FLAG);
 	}
@@ -261,13 +262,13 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateField("ProductCode", request.getProductCode(), true, 6, 6);
 		ValidationUtil.validateEnumeration("AlertType", request.getAlertType(), true, 6, 6, ALERT_TYPES);
 		ValidationUtil.validateEnumeration("Frequency", request.getFrequency(), true, 3, 3, FREQUENCY_TYPES);
 		if (request.getAlertData() != null) {
-			ValidationUtil.validateField("AlertData", request.getAlertData(), false, 12, 12);
+			ValidationUtil.validateField("AlertData", request.getAlertData(), false, 1, 12);
 		}
 		ValidationUtil.validateEnumeration("Channel", request.getChannel(), true, 3, 5, CHANNEL_TYPES);
 		ValidationUtil.validatePattern("AlertSet", request.getAlertSet(), true, 1, 1, YN_FLAG);
@@ -278,7 +279,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		if (request.getReftext1() != null) {
 			ValidationUtil.validateField("Reftext1", request.getReftext1(), false, 0, 100);
 		}
@@ -300,12 +301,12 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateDate("ExpiryDate", request.getExpiryDate(), true, 4, 4, EXP_DATE_FORMAT);
 		ValidationUtil.validateField("CVV2", request.getCvv2(), true, 3, 3);
 		ValidationUtil.validateDate("DOB", request.getDob(), true, 8, 8, DATE_FORMAT);
-		ValidationUtil.validatePattern("EPinBlock", request.getEPinBlock(), true, 16, 16, ATM_EPINBLOCK);
+		ValidationUtil.validatePattern("EPinBlock", request.getEPinBlock(), true, 1, 16, ATM_EPINBLOCK);
 	}
 
 	public static void newOTPRequestPayLoad(OTPRequest request) throws ValidationFailedException {
@@ -313,7 +314,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 12);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 12);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateDate("ExpiryDate", request.getExpiryDate(), true, 4, 4, EXP_DATE_FORMAT);
 		if (request.getReftext1() != null) {
@@ -332,7 +333,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 12, 12);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 12);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		ValidationUtil.validateField("OTP", request.getOtp(), true, 6, 6);
 	}
@@ -342,7 +343,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("ProxyNumber", request.getProxyNumber(), true, 12, 16);
 		if (request.getReftext1() != null) {
 			ValidationUtil.validateField("Reftext1", request.getReftext1(), false, 0, 100);
@@ -361,7 +362,7 @@ public class AccountPayload {
 			throw new ValidationFailedException("Request cannot be null.");
 		}
 
-		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 32, 32);
+		ValidationUtil.validateField("TxnRefNo", request.getTxnRefNo(), true, 1, 32);
 		ValidationUtil.validateField("CorpNameOne", request.getCorpNameOne(), true, 1, 100);
 		ValidationUtil.validateField("StreetName", request.getStreetName(), true, 1, 100);
 		ValidationUtil.validateField("City", request.getCity(), true, 1, 50);

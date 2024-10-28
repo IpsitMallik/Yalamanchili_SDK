@@ -1,11 +1,5 @@
 package com.ottl.service;
 
-import java.nio.charset.StandardCharsets;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-
 import com.ottl.model.*;
 import com.ottl.soapclient.NaradaApiServiceClient;
 import com.ottl.soapclient.RequestHeader;
@@ -22,8 +16,9 @@ public class AccountManagementService {
 		this.serviceClient = new NaradaApiServiceClient();
 	}
 
-	public UpdateCustomerResponse updateCustomerDetails(final RequestHeader rh, final UpdateCustomerRequest req) {
+	public String updateCustomerDetails(final RequestHeader rh, final String json) {
 		try {
+			UpdateCustomerRequest req = JsonToObjectConverter.convertJsonToObject(json, UpdateCustomerRequest.class);
 			rh.setApiKey("APUPCR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.updateCustomerPayLoad(req);
@@ -35,7 +30,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, UpdateCustomerResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -46,8 +41,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public AddAccountResponse addAccount(final RequestHeader rh, final AddAccountRequest req) {
+	public String addAccount(final RequestHeader rh, final String json) {
 		try {
+			AddAccountRequest req = JsonToObjectConverter.convertJsonToObject(json, AddAccountRequest.class);
 			rh.setApiKey("APACAD");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.addAccountPayLoad(req);
@@ -59,7 +55,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, AddAccountResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -70,8 +66,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public QueryBalanceResponse queryBalance(final RequestHeader rh, final QueryBalanceRequest req) {
+	public String queryBalance(final RequestHeader rh, final String json) {
 		try {
+			QueryBalanceRequest req = JsonToObjectConverter.convertJsonToObject(json, QueryBalanceRequest.class);
 			rh.setApiKey("APACBL");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.queryBalancePayLoad(req);
@@ -83,7 +80,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, QueryBalanceResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -94,8 +91,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public RefundAmountResponse refundAmount(final RequestHeader rh, final RefundAmountRequest req) {
+	public String refundAmount(final RequestHeader rh, final String json) {
 		try {
+			RefundAmountRequest req = JsonToObjectConverter.convertJsonToObject(json, RefundAmountRequest.class);
 			rh.setApiKey("APCRND");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.refundAmountPayLoad(req);
@@ -107,7 +105,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, RefundAmountResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -118,8 +116,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public AccountClosureResponse accountClosure(final RequestHeader rh, final AccountClosureRequest req) {
+	public String accountClosure(final RequestHeader rh, final String json) {
 		try {
+			AccountClosureRequest req = JsonToObjectConverter.convertJsonToObject(json, AccountClosureRequest.class);
 			rh.setApiKey("APACCL");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.accountClosurePayLoad(req);
@@ -131,7 +130,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, AccountClosureResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -142,8 +141,10 @@ public class AccountManagementService {
 		}
 	}
 
-	public DebitCreditAccountResponse debitCreditAccount(final RequestHeader rh, final DebitCreditAccountRequest req) {
+	public String debitCreditAccount(final RequestHeader rh, final String json) {
 		try {
+			DebitCreditAccountRequest req = JsonToObjectConverter.convertJsonToObject(json,
+					DebitCreditAccountRequest.class);
 			rh.setApiKey("APCRDR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.debitCreditAccountPayLoad(req);
@@ -155,7 +156,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, DebitCreditAccountResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -166,8 +167,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public FundTransferResponse fundTransfer(final RequestHeader rh, final FundTransferRequest req) {
+	public String fundTransfer(final RequestHeader rh, final String json) {
 		try {
+			FundTransferRequest req = JsonToObjectConverter.convertJsonToObject(json, FundTransferRequest.class);
 			rh.setApiKey("APFDTR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.fundTransferPayLoad(req);
@@ -179,7 +181,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, FundTransferResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -190,8 +192,10 @@ public class AccountManagementService {
 		}
 	}
 
-	public UpdateExchangeRateResponse updateExchangeRate(final RequestHeader rh, final UpdateExchangeRateRequest req) {
+	public String updateExchangeRate(final RequestHeader rh, final String json) {
 		try {
+			UpdateExchangeRateRequest req = JsonToObjectConverter.convertJsonToObject(json,
+					UpdateExchangeRateRequest.class);
 			rh.setApiKey("APFREX");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.updateExchangeRatePayLoad(req);
@@ -203,7 +207,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, UpdateExchangeRateResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -214,12 +218,12 @@ public class AccountManagementService {
 		}
 	}
 
-	public ProfileCreationResponse createProfile(final RequestHeader rh, final ProfileCreationRequest req) {
+	public String createProfile(final RequestHeader rh, final String json) {
 		try {
+			ProfileCreationRequest req = JsonToObjectConverter.convertJsonToObject(json, ProfileCreationRequest.class);
 			rh.setApiKey("APRFCR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.createProfilePayLoad(req);
-			req.setPassword(hashAndEncodePassword(req.getPassword()));
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -228,7 +232,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ProfileCreationResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -239,13 +243,12 @@ public class AccountManagementService {
 		}
 	}
 
-	public ChangePasswordResponse changePassword(final RequestHeader rh, final ChangePasswordRequest req) {
+	public String changePassword(final RequestHeader rh, final String json) {
 		try {
+			ChangePasswordRequest req = JsonToObjectConverter.convertJsonToObject(json, ChangePasswordRequest.class);
 			rh.setApiKey("ACHPSS");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.changePasswordPayLoad(req);
-			req.setOldPassword(hashAndEncodePassword(req.getOldPassword()));
-			req.setNewPassword(hashAndEncodePassword(req.getNewPassword()));
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -254,7 +257,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ChangePasswordResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -265,8 +268,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public AccessRightsResponse getAccessRights(final RequestHeader rh, final AccessRightsRequest req) {
+	public String getAccessRights(final RequestHeader rh, final String json) {
 		try {
+			AccessRightsRequest req = JsonToObjectConverter.convertJsonToObject(json, AccessRightsRequest.class);
 			rh.setApiKey("APACRT");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.getAccessRightsPayLoad(req);
@@ -278,7 +282,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, AccessRightsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -289,8 +293,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public RetrievePinResponse retrieveATMPin(final RequestHeader rh, final RetrievePinRequest req) {
+	public String retrieveATMPin(final RequestHeader rh, final String json) {
 		try {
+			RetrievePinRequest req = JsonToObjectConverter.convertJsonToObject(json, RetrievePinRequest.class);
 			rh.setApiKey("APIPIR");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.retrieveATMPinPayLoad(req);
@@ -302,7 +307,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, RetrievePinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -313,8 +318,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public VerifyPinResponse verifyATMPin(final RequestHeader rh, final VerifyPinRequest req) {
+	public String verifyATMPin(final RequestHeader rh, final String json) {
 		try {
+			VerifyPinRequest req = JsonToObjectConverter.convertJsonToObject(json, VerifyPinRequest.class);
 			rh.setApiKey("APIVER");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.verifyATMPinPayLoad(req);
@@ -326,7 +332,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, VerifyPinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -337,8 +343,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public ChangePinResponse changeATMPin(final RequestHeader rh, final ChangePinRequest req) {
+	public String changeATMPin(final RequestHeader rh, final String json) {
 		try {
+			ChangePinRequest req = JsonToObjectConverter.convertJsonToObject(json, ChangePinRequest.class);
 			rh.setApiKey("APICHG");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.changeATMPinPayLoad(req);
@@ -350,7 +357,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ChangePinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -361,8 +368,10 @@ public class AccountManagementService {
 		}
 	}
 
-	public OverrideSettingsResponse assignOverrideSettings(final RequestHeader rh, final OverrideSettingsRequest req) {
+	public String assignOverrideSettings(final RequestHeader rh, final String json) {
 		try {
+			OverrideSettingsRequest req = JsonToObjectConverter.convertJsonToObject(json,
+					OverrideSettingsRequest.class);
 			rh.setApiKey("AOVRST");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.assignOverrideSettingsPayLoad(req);
@@ -374,7 +383,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, OverrideSettingsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -385,8 +394,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public AlertSettingsResponse alertSettings(final RequestHeader rh, final AlertSettingsRequest req) {
+	public String alertSettings(final RequestHeader rh, final String json) {
 		try {
+			AlertSettingsRequest req = JsonToObjectConverter.convertJsonToObject(json, AlertSettingsRequest.class);
 			rh.setApiKey("APALTS");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.alertSettingsPayLoad(req);
@@ -398,7 +408,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, AlertSettingsResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -409,13 +419,13 @@ public class AccountManagementService {
 		}
 	}
 
-	public ResetPasswordResponse resetWebPassword(final RequestHeader rh, final ResetPasswordRequest req) {
+	public String resetWebPassword(final RequestHeader rh, final String json) {
 		try {
+			ResetPasswordRequest req = JsonToObjectConverter.convertJsonToObject(json, ResetPasswordRequest.class);
 			rh.setApiKey("APFORP");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.resetWebPasswordPayLoad(req);
-			req.setNewPassword(hashAndEncodePassword(req.getNewPassword()));
-			req.setConfirmPassword(hashAndEncodePassword(req.getConfirmPassword()));
+
 			final String requestXml = XmlRequestGenerator.generateXml(req);
 			final ResponseBody responseBody = serviceClient.serviceCall(rh, requestXml);
 			if (responseBody == null) {
@@ -424,7 +434,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, ResetPasswordResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -435,8 +445,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public SetAtmPinResponse setATMPin(final RequestHeader rh, final SetAtmPinRequest req) {
+	public String setATMPin(final RequestHeader rh, final String json) {
 		try {
+			SetAtmPinRequest req = JsonToObjectConverter.convertJsonToObject(json, SetAtmPinRequest.class);
 			rh.setApiKey("APINST");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.setATMPinPayLoad(req);
@@ -448,7 +459,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, SetAtmPinResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -459,8 +470,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public OTPRequestResponse newOTPRequest(final RequestHeader rh, final OTPRequest req) {
+	public String newOTPRequest(final RequestHeader rh, final String json) {
 		try {
+			OTPRequest req = JsonToObjectConverter.convertJsonToObject(json, OTPRequest.class);
 			rh.setApiKey("AFPOTP");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.newOTPRequestPayLoad(req);
@@ -472,7 +484,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, OTPRequestResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -483,8 +495,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public OTPValidationResponse otpValidation(final RequestHeader rh, final OTPValidationRequest req) {
+	public String otpValidation(final RequestHeader rh, final String json) {
 		try {
+			OTPValidationRequest req = JsonToObjectConverter.convertJsonToObject(json, OTPValidationRequest.class);
 			rh.setApiKey("AVPOTP");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.otpValidationPayLoad(req);
@@ -496,7 +509,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, OTPValidationResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -507,8 +520,9 @@ public class AccountManagementService {
 		}
 	}
 
-	public WebProfileResponse retrieveWebProfile(final RequestHeader rh, final WebProfileRequest req) {
+	public String retrieveWebProfile(final RequestHeader rh, final String json) {
 		try {
+			WebProfileRequest req = JsonToObjectConverter.convertJsonToObject(json, WebProfileRequest.class);
 			rh.setApiKey("APUSPF");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.retrieveWebProfilePayLoad(req);
@@ -520,7 +534,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, WebProfileResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -531,9 +545,10 @@ public class AccountManagementService {
 		}
 	}
 
-	public CorporateRegistrationResponse corporateRegistration(final RequestHeader rh,
-			final CorporateRegistrationRequest req) {
+	public String corporateRegistration(final RequestHeader rh, final String json) {
 		try {
+			CorporateRegistrationRequest req = JsonToObjectConverter.convertJsonToObject(json,
+					CorporateRegistrationRequest.class);
 			rh.setApiKey("ACRREG");
 			PayLoadValidator.requestHeaderPayLoad(rh);
 			AccountPayload.corporateRegistrationPayLoad(req);
@@ -545,7 +560,7 @@ public class AccountManagementService {
 			final String status = responseBody.getResponseCode();
 			if (status.equals("00")) {
 				final String res = responseBody.getResponse();
-				return XMLResponseParser.parseXml(res, CorporateRegistrationResponse.class);
+				return XMLResponseParser.parseXml(res);
 			} else {
 				throw new ServiceException(status, responseBody.getResponseText());
 			}
@@ -556,12 +571,4 @@ public class AccountManagementService {
 		}
 	}
 
-	private static String hashAndEncodePassword(String password) throws NoSuchAlgorithmException {
-		// Hash the password using SHA-256
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		byte[] hashedBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-
-		// Encode the hashed bytes into a BASE64 string
-		return Base64.getEncoder().encodeToString(hashedBytes);
-	}
 }
