@@ -70,12 +70,10 @@ public class ApiCallClass {
 
 			NaradaResponse res = port.serviceCall(req);
 			ResponseBody response = res.getResponseBody();
-			String reslt = encryptionUtility.decryptXmlResponse(response.getResponse(), res.getResponseHeader().getSessionKey(), res.getResponseHeader().getMsgRefNo());
-
 
 			System.out.println("\nResponse code: " + response.getResponseCode());
 			System.out.println("Response text: " + response.getResponseText());
-			System.out.println("Response: " + reslt);
+			System.out.println("Response: " + response.getResponse());
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -700,9 +698,10 @@ public class ApiCallClass {
 
 			NaradaResponse res = port.serviceCall(request);
 			ResponseBody response = res.getResponseBody();
-			
-			String reslt = encryptionUtility.decryptXmlResponse(response.getResponse(), res.getResponseHeader().getSessionKey(), res.getResponseHeader().getMsgRefNo());
-			
+
+			String reslt = encryptionUtility.decryptXmlResponse(response.getResponse(),
+					res.getResponseHeader().getSessionKey(), res.getResponseHeader().getMsgRefNo());
+
 			System.out.println("\nResponse code: " + response.getResponseCode());
 			System.out.println("Response text: " + response.getResponseText());
 			System.out.println("Response: " + reslt);
@@ -1765,5 +1764,5 @@ public class ApiCallClass {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

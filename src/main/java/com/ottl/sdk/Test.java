@@ -20,8 +20,7 @@ public class Test {
 				"  \"CustomerId\": \"\"\n" +
 				"}";
 
-		// ApiCallClass.callMethodByName("blockLockUnlockCard", header, jsonString);
-		String res = ns.invokeServiceMethod("getCardDetails", header, jsonString);
-		System.out.println(res);
+		ApiCallClass.callMethodByName("getCardDetails", header, jsonString);
+
 	}
 }
