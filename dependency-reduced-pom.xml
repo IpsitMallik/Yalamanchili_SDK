@@ -11,8 +11,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -29,6 +29,10 @@
                 <transformer>
                   <mainClass>com.ottl.sdk.Test</mainClass>
                 </transformer>
+                <transformer>
+                  <resource>META-INF/cxf/bus-extensions.txt</resource>
+                </transformer>
+                <transformer />
               </transformers>
               <filters>
                 <filter>
@@ -46,6 +50,14 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

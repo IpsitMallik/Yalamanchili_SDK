@@ -15,12 +15,13 @@ public class Test {
 
 		RequestHeader header = ns.getHeader("API", "123456123456");
 		String jsonString = "{\n" +
-				"  \"TxnRefNo\": \"ASDHFG03612309\",\n" +
+				"  \"TxnRefNo\": \"ASDHFG04642308\",\n" +
 				"  \"ProxyNumber\": \"000000012869\",\n" +
 				"  \"CustomerId\": \"\"\n" +
 				"}";
 
-		ApiCallClass.callMethodByName("getCardDetails", header, jsonString);
-
+		// ApiCallClass.callMethodByName("blockLockUnlockCard", header, jsonString);
+		String res = ns.invokeServiceMethod("getCardDetails", header, jsonString);
+		System.out.println(res);
 	}
 }

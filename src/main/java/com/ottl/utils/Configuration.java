@@ -2,6 +2,8 @@ package com.ottl.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Configuration {
@@ -39,10 +41,20 @@ public class Configuration {
     }
 
     public static String getPvtKeyFilePath() {
-        return properties.getProperty("pvt.key.file.path");
+        return getPath(properties.getProperty("pvt.key.file.path"));
     }
 
     public static String getCertFilePath() {
-        return properties.getProperty("public.certificate.file.path");
+        return getPath(properties.getProperty("public.certificate.file.path"));
+    }
+
+    private static String getPath(String relativePath) {
+        try {
+            return Paths.get(Configuration.class.getClassLoader().getResource(relativePath).toURI()).toString();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Invalid URI syntax for path: " + relativePath, e);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Resource not found: " + relativePath, e);
+        }
     }
 }
